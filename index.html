@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>iTechz Solutions — Professional IT Services Mumbai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+/* ── HERO ── */
+.hero {
+  padding-top: 68px;
+  background: var(--navy);
+  min-height: 92vh;
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+}
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-glow {
+  position: absolute; top: -20%; right: -10%;
+  width: 700px; height: 700px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,86,219,.35) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-glow2 {
+  position: absolute; bottom: -30%; left: -5%;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,86,219,.15) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  max-width: 1200px; margin: 0 auto; padding: 5rem 2rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+}
+@media(max-width:820px){.hero-inner{grid-template-columns:1fr;text-align:center}}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px; padding: .35rem 1rem .35rem .55rem;
+  font-size: .75rem; font-weight: 600; color: rgba(255,255,255,.75);
+  letter-spacing: .06em; margin-bottom: 1.6rem;
+  animation: fadeUp .6s .1s both;
+}
+.hero-eyebrow-dot {
+  width: 7px; height: 7px; background: #22c55e; border-radius: 50%;
+  box-shadow: 0 0 6px #22c55e;
+  animation: blink 2s infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1 {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 800; color: #fff; letter-spacing: -.6px;
+  line-height: 1.1; margin-bottom: 1.4rem;
+  animation: fadeUp .7s .2s both;
+}
+.hero h1 span {
+  background: linear-gradient(135deg, #60a5fa, #818cf8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: 1.05rem; color: rgba(255,255,255,.6);
+  line-height: 1.8; max-width: 480px; margin-bottom: 2.5rem;
+  animation: fadeUp .7s .35s both;
+}
+@media(max-width:820px){.hero-sub{margin-inline:auto}}
+.hero-actions {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  animation: fadeUp .7s .5s both;
+}
+@media(max-width:820px){.hero-actions{justify-content:center}}
+.hero-btn-primary {
+  padding: .85rem 2rem; background: var(--blue); color: #fff;
+  border: none; border-radius: 10px; font-size: .92rem; font-weight: 700;
+  font-family: var(--sans); cursor: pointer; text-decoration: none;
+  box-shadow: 0 4px 20px rgba(26,86,219,.45);
+  transition: background .2s, transform .15s, box-shadow .2s;
+  display: inline-block;
+}
+.hero-btn-primary:hover { background: #1e63f5; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(26,86,219,.55); }
+.hero-btn-outline {
+  padding: .85rem 2rem; background: transparent; color: rgba(255,255,255,.85);
+  border: 1.5px solid rgba(255,255,255,.2); border-radius: 10px;
+  font-size: .92rem; font-weight: 600; font-family: var(--sans); cursor: pointer;
+  transition: border-color .2s, background .2s, transform .15s;
+  text-decoration: none; display: inline-block;
+}
+.hero-btn-outline:hover { border-color: rgba(255,255,255,.5); background: rgba(255,255,255,.06); transform: translateY(-2px); }
+.hero-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; margin-top: 3rem;
+  animation: fadeUp .7s .65s both;
+}
+@media(max-width:820px){.hero-stats{max-width:400px;margin-inline:auto}}
+.hero-stat { }
+.hero-stat-num {
+  font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -.5px;
+}
+.hero-stat-num span { color: #60a5fa; }
+.hero-stat-lbl { font-size: .78rem; color: rgba(255,255,255,.45); margin-top: .1rem; }
+
+/* Hero right — services preview */
+.hero-right {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  animation: fadeUp .7s .4s both;
+}
+@media(max-width:820px){.hero-right{max-width:460px;margin-inline:auto}}
+.hero-card {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 14px; padding: 1.4rem 1.2rem;
+  transition: background .25s, border-color .25s, transform .25s;
+  text-decoration: none;
+}
+.hero-card:hover {
+  background: rgba(255,255,255,.1);
+  border-color: rgba(96,165,250,.4);
+  transform: translateY(-3px);
+}
+.hero-card-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(26,86,219,.35); display: grid; place-items: center; margin-bottom: .9rem;
+}
+.hero-card-icon svg { width: 19px; height: 19px; stroke: #93c5fd; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.hero-card h3 { font-size: .88rem; font-weight: 700; color: #fff; margin-bottom: .3rem; }
+.hero-card p { font-size: .74rem; color: rgba(255,255,255,.45); line-height: 1.5; }
+
+/* ── WHY / TRUST BAR ── */
+.trust-bar {
+  background: var(--bg2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 2.5rem 2rem;
+}
+.trust-bar-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem;
+}
+@media(max-width:720px){.trust-bar-inner{grid-template-columns:repeat(2,1fr)}}
+.trust-item { display: flex; align-items: flex-start; gap: .9rem; }
+.trust-icon {
+  width: 42px; height: 42px; border-radius: 10px;
+  background: var(--blue-lt); display: grid; place-items: center; flex-shrink: 0;
+}
+.trust-icon svg { width: 18px; height: 18px; stroke: var(--blue); fill: none; stroke-width: 2; stroke-linecap: round; }
+.trust-title { font-size: .88rem; font-weight: 700; color: var(--navy); margin-bottom: .15rem; }
+.trust-sub { font-size: .76rem; color: var(--gray); line-height: 1.5; }
+
+/* ── SERVICES OVERVIEW ── */
+.services-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+}
+@media(max-width:900px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.services-grid{grid-template-columns:1fr}}
+.svc-card {
+  background: var(--bg); border: 1px solid var(--line);
+  border-radius: var(--radius-lg); overflow: hidden;
+  transition: border-color .25s, box-shadow .25s, transform .25s;
+  text-decoration: none; color: inherit; display: block;
+}
+.svc-card:hover { border-color: #bfdbfe; box-shadow: var(--shadow-md); transform: translateY(-4px); }
+.svc-img {
+  width: 100%; height: 175px; object-fit: cover;
+  display: block; transition: transform .4s;
+}
+.svc-card:hover .svc-img { transform: scale(1.04); }
+.svc-img-wrap { overflow: hidden; }
+.svc-body { padding: 1.5rem; }
+.svc-chip { margin-bottom: .7rem; }
+.svc-title { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: .5rem; }
+.svc-desc { font-size: .82rem; color: var(--gray); line-height: 1.7; margin-bottom: 1rem; }
+.svc-link { font-size: .8rem; font-weight: 700; color: var(--blue); display: flex; align-items: center; gap: .3rem; }
+.svc-link::after { content: '→'; transition: transform .2s; }
+.svc-card:hover .svc-link::after { transform: translateX(4px); }
+
+/* ── CTA BANNER ── */
+.cta-banner {
+  background: var(--blue); padding: 5rem 2rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-banner::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.05) 0%, transparent 60%);
+}
+.cta-banner h2 { font-size: clamp(1.8rem,3.5vw,2.8rem); font-weight: 800; color: #fff; margin-bottom: .75rem; letter-spacing:-.4px; }
+.cta-banner p { font-size: 1rem; color: rgba(255,255,255,.7); max-width: 500px; margin: 0 auto 2.2rem; line-height: 1.75; }
+.cta-banner-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-white {
+  padding: .85rem 2rem; background: #fff; color: var(--blue);
+  border: none; border-radius: 10px; font-size: .9rem; font-weight: 700;
+  font-family: var(--sans); cursor: pointer; text-decoration: none;
+  display: inline-block;
+  transition: background .2s, transform .15s;
+}
+.btn-white:hover { background: #f0f9ff; transform: translateY(-2px); }
+.btn-white-outline {
+  padding: .85rem 2rem; background: transparent; color: #fff;
+  border: 1.5px solid rgba(255,255,255,.4); border-radius: 10px;
+  font-size: .9rem; font-weight: 600; font-family: var(--sans); cursor: pointer;
+  text-decoration: none; display: inline-block;
+  transition: border-color .2s, background .2s, transform .15s;
+}
+.btn-white-outline:hover { border-color: rgba(255,255,255,.8); background: rgba(255,255,255,.08); transform: translateY(-2px); }
+</style>
+</head>
+<body>
+<!-- NAV injected by JS -->
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        Available Now · Mumbai, Maharashtra
+      </div>
+      <h1>Professional IT Services<br>you can <span>trust</span></h1>
+      <p class="hero-sub">From laptop & desktop hardware repair to network setup, software installation, antivirus protection, and CCTV surveillance — iTechz Solutions delivers expert IT support for homes and businesses.</p>
+      <div class="hero-actions">
+        <a class="hero-btn-primary" href="services.html">View All Services</a>
+        <a class="hero-btn-outline" href="contact.html">Book a Visit</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">500<span>+</span></div>
+          <div class="hero-stat-lbl">Clients Served</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">6<span>+</span></div>
+          <div class="hero-stat-lbl">Years Experience</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">99<span>%</span></div>
+          <div class="hero-stat-lbl">Satisfaction Rate</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <a class="hero-card" href="services.html#laptop">
+        <div class="hero-card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/></svg></div>
+        <h3>Laptop Repair</h3>
+        <p>Screen, keyboard, battery, motherboard & more</p>
+      </a>
+      <a class="hero-card" href="services.html#desktop">
+        <div class="hero-card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h3>Desktop Services</h3>
+        <p>Full hardware repair & custom PC builds</p>
+      </a>
+      <a class="hero-card" href="services.html#network">
+        <div class="hero-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><circle cx="4" cy="19" r="3"/><circle cx="20" cy="19" r="3"/><line x1="12" y1="8" x2="4" y2="16"/><line x1="12" y1="8" x2="20" y2="16"/></svg></div>
+        <h3>Network & WiFi</h3>
+        <p>Router setup, LAN cabling, VPN & more</p>
+      </a>
+      <a class="hero-card" href="services.html#cctv">
+        <div class="hero-card-icon"><svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+        <h3>CCTV Installation</h3>
+        <p>HD cameras, DVR/NVR, remote viewing setup</p>
+      </a>
+      <a class="hero-card" href="services.html#printer">
+        <div class="hero-card-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></div>
+        <h3>Printer Repair</h3>
+        <p>Inkjet, laser, multifunction — all brands</p>
+      </a>
+      <a class="hero-card" href="services.html#software">
+        <div class="hero-card-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h3>Software & OS</h3>
+        <p>Windows, antivirus, Office & configuration</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-item reveal">
+      <div class="trust-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div>
+        <div class="trust-title">24-Hour Turnaround</div>
+        <div class="trust-sub">Most repairs completed same or next day</div>
+      </div>
+    </div>
+    <div class="trust-item reveal">
+      <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+      <div>
+        <div class="trust-title">Doorstep Service</div>
+        <div class="trust-sub">We come to your home or office</div>
+      </div>
+    </div>
+    <div class="trust-item reveal">
+      <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div>
+        <div class="trust-title">Warranty on All Work</div>
+        <div class="trust-sub">Every repair backed by service guarantee</div>
+      </div>
+    </div>
+    <div class="trust-item reveal">
+      <div class="trust-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div>
+        <div class="trust-title">Transparent Pricing</div>
+        <div class="trust-sub">Clear quote before any work begins</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES OVERVIEW -->
+<section class="section" style="background:var(--bg)">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:3rem">
+      <div class="reveal">
+        <span class="eyebrow">Our Services</span>
+        <h2 class="section-title" style="margin-bottom:0">Everything IT, <br>handled professionally</h2>
+      </div>
+      <a class="btn-primary reveal" href="services.html" style="flex-shrink:0">View All Services →</a>
+    </div>
+    <div class="services-grid">
+      <a class="svc-card reveal" href="services.html#laptop">
+        <div class="svc-img-wrap"><img class="svc-img" src="https://images.unsplash.com/photo-1588702547954-4800316b49c4?w=600&q=80" alt="Laptop repair"/></div>
+        <div class="svc-body">
+          <div class="svc-chip"><span class="chip">Hardware</span></div>
+          <div class="svc-title">Laptop Repair</div>
+          <p class="svc-desc">Screen, keyboard, battery, motherboard, RAM/SSD upgrades, water damage & more for all major brands.</p>
+          <div class="svc-link">Learn More</div>
+        </div>
+      </a>
+      <a class="svc-card reveal" href="services.html#desktop">
+        <div class="svc-img-wrap"><img class="svc-img" src="https://images.unsplash.com/photo-1593640495253-23196b27a87f?w=600&q=80" alt="Desktop repair"/></div>
+        <div class="svc-body">
+          <div class="svc-chip"><span class="chip">Hardware</span></div>
+          <div class="svc-title">Desktop Services</div>
+          <p class="svc-desc">Full hardware repair, upgrades, SMPS replacement, and custom PC builds for home and office.</p>
+          <div class="svc-link">Learn More</div>
+        </div>
+      </a>
+      <a class="svc-card reveal" href="services.html#network">
+        <div class="svc-img-wrap"><img class="svc-img" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="Network setup"/></div>
+        <div class="svc-body">
+          <div class="svc-chip"><span class="chip">Networking</span></div>
+          <div class="svc-title">Network & WiFi</div>
+          <p class="svc-desc">Router setup, LAN cabling, mesh networks, VPN, firewall configuration & troubleshooting.</p>
+          <div class="svc-link">Learn More</div>
+        </div>
+      </a>
+      <a class="svc-card reveal" href="services.html#cctv">
+        <div class="svc-img-wrap"><img class="svc-img" src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&q=80" alt="CCTV"/></div>
+        <div class="svc-body">
+          <div class="svc-chip"><span class="chip">Security</span></div>
+          <div class="svc-title">CCTV Installation</div>
+          <p class="svc-desc">HD & 4K cameras, DVR/NVR, mobile remote viewing, night vision & annual maintenance.</p>
+          <div class="svc-link">Learn More</div>
+        </div>
+      </a>
+      <a class="svc-card reveal" href="services.html#printer">
+        <div class="svc-img-wrap"><img class="svc-img" src="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=600&q=80" alt="Printer repair"/></div>
+        <div class="svc-body">
+          <div class="svc-chip"><span class="chip">Printer</span></div>
+          <div class="svc-title">Printer Repair</div>
+          <p class="svc-desc">Paper jams, print heads, toner, drum replacement & wireless setup for HP, Canon, Epson & more.</p>
+          <div class="svc-link">Learn More</div>
+        </div>
+      </a>
+      <a class="svc-card reveal" href="services.html#software">
+        <div class="svc-img-wrap"><img class="svc-img" src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=600&q=80" alt="Software services"/></div>
+        <div class="svc-body">
+          <div class="svc-chip"><span class="chip">Software</span></div>
+          <div class="svc-title">Software & Antivirus</div>
+          <p class="svc-desc">Windows installation, MS Office, antivirus setup, virus removal, system optimization & remote support.</p>
+          <div class="svc-link">Learn More</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div style="position:relative;z-index:1">
+    <div class="reveal">
+      <h2>Need IT support today?</h2>
+      <p>Call or WhatsApp Shubham Kadam directly. Fast response, honest pricing, guaranteed results.</p>
+    </div>
+    <div class="cta-banner-btns reveal">
+      <a class="btn-white" href="tel:+918605400518">📞 Call Now: +91 86054 00518</a>
+      <a class="btn-white-outline" href="contact.html">Book a Service Visit</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER injected by JS -->
+<script src="shared.js"></script>
+<script>initPage('index')</script>
+</body>
+</html>

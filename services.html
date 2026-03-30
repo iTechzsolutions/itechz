@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Services — iTechz Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.page-hero {
+  padding-top: 68px;
+  background: var(--navy);
+  padding-bottom: 0;
+}
+.page-hero-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 4rem 2rem 3rem;
+}
+.page-hero h1 { font-size: clamp(2rem,4vw,3rem); color: #fff; font-weight: 800; letter-spacing: -.5px; margin-bottom: .75rem; }
+.page-hero p { font-size: 1rem; color: rgba(255,255,255,.55); max-width: 560px; line-height: 1.8; }
+.breadcrumb { display: flex; align-items: center; gap: .5rem; font-size: .78rem; color: rgba(255,255,255,.4); margin-bottom: 1.2rem; }
+.breadcrumb a { color: rgba(255,255,255,.55); text-decoration: none; }
+.breadcrumb a:hover { color: #fff; }
+.breadcrumb span { color: rgba(255,255,255,.25); }
+
+/* SERVICE NAV TABS */
+.svc-tabs-wrap { background: var(--navy2); border-top: 1px solid rgba(255,255,255,.08); }
+.svc-tabs {
+  max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+  display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+}
+.svc-tabs::-webkit-scrollbar { display: none; }
+.svc-tab {
+  padding: 1rem 1.4rem; font-size: .82rem; font-weight: 600;
+  color: rgba(255,255,255,.45); white-space: nowrap; cursor: pointer;
+  border-bottom: 2px solid transparent; transition: color .2s, border-color .2s;
+  text-decoration: none; display: block;
+}
+.svc-tab:hover { color: rgba(255,255,255,.8); }
+.svc-tab.active { color: #fff; border-color: var(--blue); }
+
+/* SERVICE DETAIL BLOCK */
+.svc-block {
+  padding: 96px 2rem;
+  border-bottom: 1px solid var(--line);
+}
+.svc-block:nth-child(even) { background: var(--bg2); }
+.svc-block-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+}
+.svc-block:nth-child(even) .svc-block-inner { direction: rtl; }
+.svc-block:nth-child(even) .svc-block-inner > * { direction: ltr; }
+@media(max-width:860px){
+  .svc-block-inner { grid-template-columns: 1fr; direction: ltr !important; }
+  .svc-block { padding: 64px 1.5rem; }
+}
+.svc-block-img {
+  border-radius: 16px; overflow: hidden;
+  box-shadow: var(--shadow-md); aspect-ratio: 4/3; background: var(--bg3);
+}
+.svc-block-img img { width: 100%; height: 100%; object-fit: cover; }
+.svc-block-content {}
+.svc-block-title { font-size: clamp(1.6rem,2.5vw,2.2rem); font-weight: 800; color: var(--navy); margin-bottom: .8rem; letter-spacing: -.3px; }
+.svc-block-desc { font-size: .95rem; color: var(--gray); line-height: 1.85; margin-bottom: 1.8rem; }
+
+.bullets { display: flex; flex-direction: column; gap: .65rem; margin-bottom: 2rem; }
+.bullet { display: flex; align-items: flex-start; gap: .75rem; }
+.bullet-check {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--blue-lt); display: grid; place-items: center; flex-shrink: 0; margin-top: .1rem;
+}
+.bullet-check svg { width: 11px; height: 11px; stroke: var(--blue); fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.bullet-text { font-size: .87rem; color: var(--slate); line-height: 1.55; }
+
+.brand-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.8rem; }
+.brand-tag {
+  font-size: .72rem; font-weight: 600; padding: .3rem .8rem;
+  border: 1px solid var(--line2); border-radius: 6px;
+  color: var(--slate2); background: var(--bg);
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span style="color:rgba(255,255,255,.7)">Services</span>
+    </div>
+    <h1>Our IT Services</h1>
+    <p>Complete technology support for homes, offices and businesses across Mumbai — hardware, software, networking, and surveillance.</p>
+  </div>
+  <div class="svc-tabs-wrap">
+    <div class="svc-tabs">
+      <a class="svc-tab active" href="#laptop">Laptop Repair</a>
+      <a class="svc-tab" href="#desktop">Desktop</a>
+      <a class="svc-tab" href="#printer">Printer</a>
+      <a class="svc-tab" href="#software">Software & OS</a>
+      <a class="svc-tab" href="#network">Network & WiFi</a>
+      <a class="svc-tab" href="#cctv">CCTV</a>
+    </div>
+  </div>
+</div>
+
+<!-- LAPTOP -->
+<div class="svc-block" id="laptop">
+  <div class="svc-block-inner">
+    <div class="svc-block-img reveal">
+      <img src="https://images.unsplash.com/photo-1588702547954-4800316b49c4?w=800&q=80" alt="Laptop repair"/>
+    </div>
+    <div class="svc-block-content reveal">
+      <span class="eyebrow">Service 01</span>
+      <h2 class="svc-block-title">Laptop Hardware Repair</h2>
+      <p class="svc-block-desc">Expert diagnosis and repair for all major laptop brands. We fix hardware faults with quality-tested parts and provide a service warranty on every job — Dell, HP, Lenovo, Asus, Acer, Apple MacBook and more.</p>
+      <div class="bullets">
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Screen replacement — LCD, LED, IPS and touch displays for all models</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Keyboard, trackpad and hinge repair or full replacement</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Battery replacement and DC power jack repair</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Motherboard repair — chip-level soldering and diagnostics</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">RAM and SSD upgrades for significantly improved performance</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Overheating fixes — fan replacement, heat sink cleaning & thermal paste</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Water damage restoration and professional deep cleaning</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Speaker, webcam, USB port and Wi-Fi card repairs</span></div>
+      </div>
+      <div class="brand-tags">
+        <span class="brand-tag">Dell</span><span class="brand-tag">HP</span><span class="brand-tag">Lenovo</span><span class="brand-tag">Apple MacBook</span><span class="brand-tag">Asus</span><span class="brand-tag">Acer</span><span class="brand-tag">MSI</span><span class="brand-tag">Samsung</span>
+      </div>
+      <a class="btn-primary" href="contact.html">Book Laptop Repair</a>
+    </div>
+  </div>
+</div>
+
+<!-- DESKTOP -->
+<div class="svc-block" id="desktop">
+  <div class="svc-block-inner">
+    <div class="svc-block-img reveal">
+      <img src="https://images.unsplash.com/photo-1593640495253-23196b27a87f?w=800&q=80" alt="Desktop services"/>
+    </div>
+    <div class="svc-block-content reveal">
+      <span class="eyebrow">Service 02</span>
+      <h2 class="svc-block-title">Desktop Hardware Solutions</h2>
+      <p class="svc-block-desc">Complete desktop repair and maintenance for home users and businesses. We diagnose and repair all internal hardware failures, upgrade components for better performance, and assemble custom PCs built to your exact specifications.</p>
+      <div class="bullets">
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">No display, dead PC, BIOS and boot failure diagnosis and repair</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">CPU and motherboard testing, replacement and upgrades</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">RAM, HDD and SSD upgrades and migration</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Graphics card (GPU) diagnosis, repair and replacement</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">SMPS and power supply testing and replacement</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Cabinet cleaning, dust removal and cable management</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">CPU cooler and case fan installation and replacement</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Custom PC builds tailored to your budget and requirements</span></div>
+      </div>
+      <div class="brand-tags">
+        <span class="brand-tag">All Brands</span><span class="brand-tag">Intel</span><span class="brand-tag">AMD</span><span class="brand-tag">Nvidia</span><span class="brand-tag">Custom Builds</span>
+      </div>
+      <a class="btn-primary" href="contact.html">Book Desktop Service</a>
+    </div>
+  </div>
+</div>
+
+<!-- PRINTER -->
+<div class="svc-block" id="printer">
+  <div class="svc-block-inner">
+    <div class="svc-block-img reveal">
+      <img src="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=800&q=80" alt="Printer repair"/>
+    </div>
+    <div class="svc-block-content reveal">
+      <span class="eyebrow">Service 03</span>
+      <h2 class="svc-block-title">Printer Repair & Maintenance</h2>
+      <p class="svc-block-desc">Expert repair and servicing of all printer types — inkjet, laser, dot matrix, and multifunction printers. We restore your printer to full working condition and offer Annual Maintenance Contracts (AMC) for offices.</p>
+      <div class="bullets">
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Paper jam repair, feed roller and pickup roller replacement</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Print head cleaning, alignment and nozzle repair</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Ink cartridge and toner cartridge replacement</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Fuser unit and drum unit replacement for laser printers</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Network and wireless printer setup and configuration</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Driver installation, PC and Mac connectivity setup</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Print spooler errors, offline printer and queue issues</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">AMC packages for schools, offices and businesses</span></div>
+      </div>
+      <div class="brand-tags">
+        <span class="brand-tag">HP</span><span class="brand-tag">Canon</span><span class="brand-tag">Epson</span><span class="brand-tag">Brother</span><span class="brand-tag">Samsung</span><span class="brand-tag">Ricoh</span>
+      </div>
+      <a class="btn-primary" href="contact.html">Book Printer Service</a>
+    </div>
+  </div>
+</div>
+
+<!-- SOFTWARE -->
+<div class="svc-block" id="software">
+  <div class="svc-block-inner">
+    <div class="svc-block-img reveal">
+      <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=800&q=80" alt="Software services"/>
+    </div>
+    <div class="svc-block-content reveal">
+      <span class="eyebrow">Service 04</span>
+      <h2 class="svc-block-title">Software, OS & Antivirus</h2>
+      <p class="svc-block-desc">Complete software support from fresh operating system installation to enterprise antivirus deployment. We keep your systems fast, fully secured, and running on licensed, up-to-date software.</p>
+      <div class="bullets">
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Windows 10 and Windows 11 fresh installation and activation</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">macOS reinstallation, Linux setup and dual-boot configuration</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Microsoft Office 365, Excel, Word, PowerPoint and Teams setup</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Antivirus installation — Kaspersky, Quick Heal, Norton, ESET, Bitdefender</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Virus, malware, spyware and ransomware removal and recovery</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Data backup strategy setup and cloud sync (Google Drive, OneDrive)</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">System optimization and speed improvement for slow computers</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Remote support via TeamViewer for quick troubleshooting</span></div>
+      </div>
+      <div class="brand-tags">
+        <span class="brand-tag">Windows 10/11</span><span class="brand-tag">macOS</span><span class="brand-tag">Office 365</span><span class="brand-tag">Kaspersky</span><span class="brand-tag">Quick Heal</span>
+      </div>
+      <a class="btn-primary" href="contact.html">Book Software Service</a>
+    </div>
+  </div>
+</div>
+
+<!-- NETWORK -->
+<div class="svc-block" id="network">
+  <div class="svc-block-inner">
+    <div class="svc-block-img reveal">
+      <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80" alt="Network services"/>
+    </div>
+    <div class="svc-block-content reveal">
+      <span class="eyebrow">Service 05</span>
+      <h2 class="svc-block-title">Network & WiFi Solutions</h2>
+      <p class="svc-block-desc">End-to-end networking solutions for homes, offices and commercial spaces. We design, install and configure wired and wireless networks that are fast, stable, secure and built to grow with your needs.</p>
+      <div class="bullets">
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">WiFi router installation and configuration — TP-Link, D-Link, Netgear, Cisco</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Wireless range extender and mesh network setup for full coverage</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">LAN and structured cabling installation (Cat5e, Cat6)</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Network switch, managed switch and firewall configuration</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Broadband and ISP router setup — Jio Fiber, ACT, BSNL, Airtel</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">VPN setup and configuration for remote workers and businesses</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Network troubleshooting — slow speed, packet loss, connection drops</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">WiFi security hardening and parental controls</span></div>
+      </div>
+      <div class="brand-tags">
+        <span class="brand-tag">TP-Link</span><span class="brand-tag">D-Link</span><span class="brand-tag">Netgear</span><span class="brand-tag">Cisco</span><span class="brand-tag">Jio Fiber</span><span class="brand-tag">Airtel</span>
+      </div>
+      <a class="btn-primary" href="contact.html">Book Network Service</a>
+    </div>
+  </div>
+</div>
+
+<!-- CCTV -->
+<div class="svc-block" id="cctv">
+  <div class="svc-block-inner">
+    <div class="svc-block-img reveal">
+      <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80" alt="CCTV installation"/>
+    </div>
+    <div class="svc-block-content reveal">
+      <span class="eyebrow">Service 06</span>
+      <h2 class="svc-block-title">CCTV Installation & Surveillance</h2>
+      <p class="svc-block-desc">Complete CCTV and security camera solutions for homes, shops, offices and warehouses. We handle everything from site survey and camera placement to full installation, configuration and ongoing maintenance.</p>
+      <div class="bullets">
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">HD, Full-HD and 4K IP and analog camera installation</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">DVR and NVR setup with HDD formatting and recording configuration</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Indoor and outdoor weatherproof camera mounting and cable routing</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Night vision, IR and motion detection zone configuration</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Mobile remote viewing setup for iOS and Android devices</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Cloud storage integration and local backup configuration</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">PTZ pan-tilt-zoom camera installation for wide-area coverage</span></div>
+        <div class="bullet"><div class="bullet-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span class="bullet-text">Annual maintenance contracts and footage retrieval support</span></div>
+      </div>
+      <div class="brand-tags">
+        <span class="brand-tag">Hikvision</span><span class="brand-tag">Dahua</span><span class="brand-tag">CP Plus</span><span class="brand-tag">TVT</span><span class="brand-tag">Analog & IP</span>
+      </div>
+      <a class="btn-primary" href="contact.html">Book CCTV Installation</a>
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+initPage('services');
+// Active tab on scroll
+const tabs = document.querySelectorAll('.svc-tab');
+const sections = ['laptop','desktop','printer','software','network','cctv'];
+window.addEventListener('scroll', () => {
+  let current = sections[0];
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 200) current = id;
+  });
+  tabs.forEach(t => {
+    t.classList.toggle('active', t.getAttribute('href') === '#'+current);
+  });
+});
+</script>
+</body>
+</html>

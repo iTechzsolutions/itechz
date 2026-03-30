@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Contact — iTechz Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.page-hero{padding-top:68px;background:var(--navy)}
+.page-hero-inner{max-width:1200px;margin:0 auto;padding:4rem 2rem 3.5rem}
+.breadcrumb{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:rgba(255,255,255,.4);margin-bottom:1.2rem}
+.breadcrumb a{color:rgba(255,255,255,.55);text-decoration:none}.breadcrumb a:hover{color:#fff}
+.breadcrumb span{color:rgba(255,255,255,.25)}
+.page-hero h1{font-size:clamp(2rem,4vw,3rem);color:#fff;font-weight:800;letter-spacing:-.5px;margin-bottom:.75rem}
+.page-hero p{font-size:1rem;color:rgba(255,255,255,.55);max-width:560px;line-height:1.8}
+
+/* CONTACT LAYOUT */
+.contact-section{padding:80px 2rem;background:var(--bg)}
+.contact-inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start;
+}
+@media(max-width:840px){.contact-inner{grid-template-columns:1fr}}
+
+/* LEFT */
+.contact-info-title{font-size:1.4rem;font-weight:800;color:var(--navy);margin-bottom:.5rem;letter-spacing:-.3px}
+.contact-info-sub{font-size:.9rem;color:var(--gray);line-height:1.8;margin-bottom:2rem}
+.contact-methods{display:flex;flex-direction:column;gap:1rem;margin-bottom:2.5rem}
+.contact-method{
+  display:flex;align-items:flex-start;gap:1rem;
+  padding:1.2rem 1.3rem;border:1px solid var(--line);border-radius:12px;
+  background:var(--bg);text-decoration:none;
+  transition:border-color .2s,box-shadow .2s,transform .2s;
+}
+.contact-method:hover{border-color:#bfdbfe;box-shadow:var(--shadow);transform:translateY(-2px)}
+.contact-method-icon{
+  width:42px;height:42px;border-radius:10px;
+  background:var(--blue-lt);display:grid;place-items:center;flex-shrink:0;
+}
+.contact-method-icon svg{width:18px;height:18px;stroke:var(--blue);fill:none;stroke-width:2;stroke-linecap:round}
+.contact-method-label{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gray2);margin-bottom:.2rem}
+.contact-method-val{font-size:.95rem;font-weight:700;color:var(--navy)}
+.contact-method-hint{font-size:.76rem;color:var(--gray);margin-top:.1rem}
+
+.wa-btn{
+  display:flex;align-items:center;justify-content:center;gap:.6rem;
+  width:100%;padding:.95rem;background:#25d366;color:#fff;
+  border:none;border-radius:10px;font-size:.92rem;font-weight:700;
+  font-family:var(--sans);cursor:pointer;text-decoration:none;
+  box-shadow:0 4px 16px rgba(37,211,102,.3);
+  transition:background .2s,transform .15s,box-shadow .2s;
+}
+.wa-btn:hover{background:#1ebe5d;transform:translateY(-2px);box-shadow:0 6px 22px rgba(37,211,102,.4)}
+.wa-btn svg{width:20px;height:20px;fill:#fff}
+
+/* HOURS */
+.hours-card{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:1.4rem 1.5rem;margin-top:1.5rem}
+.hours-title{font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem}
+.hours-title svg{width:15px;height:15px;stroke:var(--blue);fill:none;stroke-width:2;stroke-linecap:round}
+.hours-row{display:flex;justify-content:space-between;font-size:.82rem;padding:.4rem 0;border-bottom:1px solid var(--line);color:var(--slate)}
+.hours-row:last-child{border-bottom:none}
+.hours-row .day{color:var(--gray)}
+.hours-row .time{font-weight:600;color:var(--navy)}
+.badge-open{background:#dcfce7;color:#16a34a;font-size:.65rem;font-weight:700;padding:.2rem .55rem;border-radius:4px;letter-spacing:.05em}
+
+/* RIGHT — FORM */
+.form-card{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:2.4rem;box-shadow:var(--shadow)}
+.form-title{font-size:1.2rem;font-weight:800;color:var(--navy);margin-bottom:.4rem}
+.form-sub{font-size:.85rem;color:var(--gray);margin-bottom:2rem;line-height:1.6}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+@media(max-width:500px){.form-row{grid-template-columns:1fr}}
+.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.form-group label{font-size:.78rem;font-weight:700;color:var(--slate);letter-spacing:.03em}
+.form-group input,.form-group select,.form-group textarea{
+  font-family:var(--sans);font-size:.88rem;color:var(--text);
+  padding:.7rem .95rem;border:1.5px solid var(--line2);border-radius:8px;
+  background:var(--bg);outline:none;
+  transition:border-color .2s,box-shadow .2s;
+  appearance:none;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,86,219,.1);
+}
+.form-group textarea{resize:vertical;min-height:120px;line-height:1.6}
+.form-group select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.form-submit{
+  width:100%;padding:.95rem;background:var(--blue);color:#fff;
+  border:none;border-radius:10px;font-size:.92rem;font-weight:700;
+  font-family:var(--sans);cursor:pointer;
+  box-shadow:var(--shadow-blue);transition:background .2s,transform .15s,box-shadow .2s;
+}
+.form-submit:hover{background:var(--blue2);transform:translateY(-1px);box-shadow:0 6px 22px rgba(26,86,219,.4)}
+.form-success{
+  display:none;text-align:center;padding:2rem;
+}
+.form-success-icon{width:56px;height:56px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
+.form-success-icon svg{width:26px;height:26px;stroke:#16a34a;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.form-success h3{font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:.5rem}
+.form-success p{font-size:.85rem;color:var(--gray);line-height:1.7}
+</style>
+</head>
+<body>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span>/</span>
+      <span style="color:rgba(255,255,255,.7)">Contact</span>
+    </div>
+    <h1>Get In Touch</h1>
+    <p>Call, WhatsApp or fill the form below. Shubham responds quickly and will schedule a visit at a time that works for you.</p>
+  </div>
+</div>
+
+<section class="contact-section">
+  <div class="contact-inner">
+
+    <!-- LEFT -->
+    <div>
+      <div class="contact-info-title reveal">Contact Information</div>
+      <p class="contact-info-sub reveal">Available 7 days a week across Mumbai and surrounding areas. Fast response guaranteed.</p>
+
+      <div class="contact-methods">
+        <a class="contact-method reveal" href="tel:+918605400518">
+          <div class="contact-method-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.84a16 16 0 0 0 6.29 6.29l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div>
+            <div class="contact-method-label">Phone</div>
+            <div class="contact-method-val">+91 86054 00518</div>
+            <div class="contact-method-hint">Tap to call directly</div>
+          </div>
+        </a>
+        <a class="contact-method reveal" href="mailto:itechz1solutions@gmail.com">
+          <div class="contact-method-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div>
+            <div class="contact-method-label">Email</div>
+            <div class="contact-method-val">itechz1solutions@gmail.com</div>
+            <div class="contact-method-hint">We reply within a few hours</div>
+          </div>
+        </a>
+        <div class="contact-method reveal">
+          <div class="contact-method-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div>
+            <div class="contact-method-label">Location</div>
+            <div class="contact-method-val">Mumbai, Maharashtra</div>
+            <div class="contact-method-hint">Doorstep service across Mumbai</div>
+          </div>
+        </div>
+      </div>
+
+      <a class="wa-btn reveal" href="https://wa.me/918605400518" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.858L.057 23.267a.75.75 0 0 0 .92.908l5.42-1.424A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.693-.484-5.25-1.334l-.376-.215-3.895 1.023 1.043-3.808-.232-.387A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Chat on WhatsApp
+      </a>
+
+      <div class="hours-card reveal">
+        <div class="hours-title">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Working Hours <span class="badge-open">Open Today</span>
+        </div>
+        <div class="hours-row"><span class="day">Monday – Friday</span><span class="time">9:00 AM – 8:00 PM</span></div>
+        <div class="hours-row"><span class="day">Saturday</span><span class="time">9:00 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span class="day">Sunday</span><span class="time">10:00 AM – 5:00 PM</span></div>
+        <div class="hours-row"><span class="day">Emergency / Urgent</span><span class="time">Call anytime</span></div>
+      </div>
+    </div>
+
+    <!-- RIGHT — FORM -->
+    <div class="form-card reveal">
+      <div id="form-wrap">
+        <div class="form-title">Send an Enquiry</div>
+        <p class="form-sub">Fill out the form and Shubham will get back to you within a few hours to confirm your appointment.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name *</label>
+            <input type="text" id="fname" placeholder="Rahul"/>
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" placeholder="Sharma"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX"/>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="you@example.com"/>
+        </div>
+        <div class="form-group">
+          <label for="service">Service Required *</label>
+          <select id="service">
+            <option value="">— Select a service —</option>
+            <option>Laptop Repair</option>
+            <option>Desktop Service</option>
+            <option>Printer Repair</option>
+            <option>Software / OS Installation</option>
+            <option>Network & WiFi Setup</option>
+            <option>CCTV Installation</option>
+            <option>Annual Maintenance Contract</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="msg">Describe Your Issue *</label>
+          <textarea id="msg" placeholder="Please describe the problem you're facing in as much detail as possible…"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Send Enquiry →</button>
+      </div>
+      <div class="form-success" id="form-success">
+        <div class="form-success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3>Enquiry Sent!</h3>
+        <p>Thank you for reaching out. Shubham will contact you shortly to confirm your appointment. You can also WhatsApp directly for a faster response.</p>
+        <a class="wa-btn" href="https://wa.me/918605400518" target="_blank" style="margin-top:1.5rem;display:flex">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.858L.057 23.267a.75.75 0 0 0 .92.908l5.42-1.424A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.693-.484-5.25-1.334l-.376-.215-3.895 1.023 1.043-3.808-.232-.387A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Follow up on WhatsApp
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script src="shared.js"></script>
+<script>
+initPage('contact');
+function submitForm() {
+  const fname = document.getElementById('fname').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const service = document.getElementById('service').value;
+  const msg = document.getElementById('msg').value.trim();
+  if (!fname || !phone || !service || !msg) {
+    alert('Please fill in all required fields marked with *');
+    return;
+  }
+  document.getElementById('form-wrap').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+}
+</script>
+</body>
+</html>

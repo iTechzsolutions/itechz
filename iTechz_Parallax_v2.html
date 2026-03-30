@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>iTechz Solutions — IT Engineering, Mumbai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Syne:wght@400;500;700;800&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+/* ── RESET & TOKENS ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0e0f12;
+  --ink2:#13151a;
+  --ink3:#1a1d24;
+  --paper:#f0ede8;
+  --white:#ffffff;
+  --muted:#5a6070;
+  --hint:#333845;
+  --blue:#1d5eff;
+  --blue2:#4477ff;
+  --blue3:#7aabff;
+  --glow:rgba(29,94,255,.15);
+  --line:rgba(255,255,255,.06);
+  --line2:rgba(255,255,255,.11);
+  --serif:'Cormorant Garamond',serif;
+  --sans:'Syne',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+html{font-size:16px;scroll-behavior:auto}
+body{
+  background:var(--ink);color:var(--white);
+  font-family:var(--sans);font-weight:400;line-height:1.6;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  cursor:none;
+}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* ═══════════════════════════════════
+   CURSOR — magnetic liquid orb
+═══════════════════════════════════ */
+#c-wrap{position:fixed;inset:0;z-index:9999;pointer-events:none}
+#c-orb{
+  position:absolute;
+  width:18px;height:18px;
+  border-radius:50%;
+  background:var(--white);
+  transform:translate(-50%,-50%);
+  mix-blend-mode:difference;
+  transition:width .3s var(--ease-out),height .3s var(--ease-out),border-radius .3s;
+}
+#c-ring{
+  position:absolute;
+  width:50px;height:50px;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  transition:width .45s var(--ease-out),height .45s var(--ease-out),border-color .3s;
+}
+#c-text{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  font-family:var(--mono);font-size:.55rem;letter-spacing:.12em;
+  color:rgba(255,255,255,.7);text-transform:uppercase;
+  opacity:0;transition:opacity .3s;white-space:nowrap;
+}
+/* trail dots */
+.c-trail{
+  position:absolute;width:4px;height:4px;border-radius:50%;
+  background:var(--blue2);transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+/* states */
+body.hov #c-orb{width:6px;height:6px}
+body.hov #c-ring{width:72px;height:72px;border-color:rgba(77,136,255,.5)}
+body.hov #c-text{opacity:1}
+body.drag #c-orb{width:60px;height:60px;border-radius:30%;background:var(--blue);mix-blend-mode:normal;opacity:.35}
+body.drag #c-ring{opacity:0}
+
+/* ═══════════════════════════════════
+   NAV
+═══════════════════════════════════ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:0 4rem;height:72px;
+  display:flex;align-items:center;
+  transition:background .6s,border-color .6s;
+  border-bottom:1px solid transparent;
+}
+#nav.solid{background:rgba(14,15,18,.9);backdrop-filter:blur(24px);border-color:var(--line)}
+.nav-inner{width:100%;max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{
+  font-family:var(--serif);font-size:1.6rem;font-weight:600;letter-spacing:-.03em;
+  position:relative;
+}
+.nav-logo::after{
+  content:'';position:absolute;left:0;bottom:-3px;width:100%;height:1px;
+  background:linear-gradient(90deg,var(--blue),transparent);
+  transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease-out);
+}
+.nav-logo:hover::after{transform:scaleX(1)}
+.nav-logo sup{font-family:var(--mono);font-size:.5rem;color:var(--blue2);vertical-align:super;margin-left:.2rem;letter-spacing:.1em}
+.nav-links{display:flex;gap:.2rem}
+.nav-links a{
+  font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);padding:.5rem 1rem;border-radius:4px;
+  transition:color .2s,background .2s;position:relative;
+}
+.nav-links a:hover{color:var(--white);background:rgba(255,255,255,.05)}
+.nav-cta{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;
+  color:var(--blue2);border:1px solid rgba(77,119,255,.35);
+  padding:.52rem 1.4rem;border-radius:4px;
+  transition:all .25s;
+}
+.nav-cta:hover{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 0 32px rgba(29,94,255,.35)}
+
+/* ═══════════════════════════════════
+   PARALLAX ENGINE
+═══════════════════════════════════ */
+.parallax-section{position:relative;overflow:hidden}
+.parallax-layer{position:absolute;inset:-30%;will-change:transform}
+
+/* ═══════════════════════════════════
+   HERO
+═══════════════════════════════════ */
+#hero{
+  height:100vh;min-height:700px;
+  display:flex;align-items:center;
+  position:relative;overflow:hidden;
+}
+/* layered parallax backgrounds */
+.hero-layer-1{/* deepest: grid */
+  position:absolute;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+  background-size:90px 90px;
+  will-change:transform;
+}
+.hero-layer-2{/* mid: glow blob */
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(ellipse 70% 60% at 65% 50%,rgba(29,94,255,.09) 0%,transparent 70%);
+  will-change:transform;
+}
+.hero-layer-3{/* foreground: grain */
+  position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:256px;
+  will-change:transform;
+}
+/* vertical stripe accent */
+.hero-stripe{
+  position:absolute;top:0;bottom:0;right:28%;width:1px;
+  background:linear-gradient(to bottom,transparent,rgba(77,119,255,.25) 40%,rgba(77,119,255,.25) 60%,transparent);
+  z-index:1;
+}
+/* floating year badge */
+.hero-badge{
+  position:absolute;top:50%;right:12%;transform:translateY(-50%);
+  z-index:3;
+  border:1px solid var(--line2);border-radius:50%;width:130px;height:130px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  will-change:transform;
+  animation:rotateBadge 18s linear infinite;
+}
+@keyframes rotateBadge{from{transform:translateY(-50%) rotate(0)}to{transform:translateY(-50%) rotate(360deg)}}
+.hero-badge-inner{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  animation:rotateBadgeInner 18s linear infinite;
+}
+@keyframes rotateBadgeInner{from{transform:rotate(0)}to{transform:rotate(-360deg)}}
+.hero-badge-num{font-family:var(--serif);font-size:2.5rem;font-weight:300;color:var(--blue2);line-height:1}
+.hero-badge-txt{font-family:var(--mono);font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:.3rem;text-align:center;line-height:1.6}
+
+.hero-inner{position:relative;z-index:4;max-width:1400px;margin:0 auto;width:100%;padding:0 4rem}
+.hero-kicker{
+  display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem;
+  opacity:0;
+}
+.kicker-line{width:40px;height:1px;background:var(--blue2)}
+.kicker-txt{font-family:var(--mono);font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue2)}
+.status-pip{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 12px #22c55e;margin-left:auto;animation:pip 2s infinite}
+@keyframes pip{0%,100%{opacity:1}50%{opacity:.3}}
+.status-txt{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--muted)}
+
+/* ── HERO HEADLINE — clip-path text reveal ── */
+.hero-headline{overflow:hidden;margin-bottom:0}
+.headline-line{overflow:hidden;line-height:1.05}
+.headline-word{
+  display:inline-block;
+  font-family:var(--serif);
+  font-size:clamp(4rem,9vw,10rem);
+  font-weight:300;
+  letter-spacing:-.04em;
+  color:var(--white);
+  transform:translateY(110%);
+  will-change:transform;
+}
+.headline-word.italic{font-style:italic;font-weight:300;color:rgba(255,255,255,.35)}
+.headline-word.blue{color:var(--blue2);font-weight:600}
+
+/* rotator text */
+.hero-rotator-wrap{overflow:hidden;height:1.15em;margin-top:.5rem}
+.hero-rotator{
+  font-family:var(--serif);font-size:clamp(4rem,9vw,10rem);
+  font-weight:600;font-style:italic;color:var(--blue2);
+  letter-spacing:-.04em;line-height:1.1;
+  display:flex;flex-direction:column;gap:.05em;
+  animation:rotateWords 6s cubic-bezier(.77,0,.18,1) infinite;
+}
+@keyframes rotateWords{
+  0%,18%{transform:translateY(0)}
+  25%,43%{transform:translateY(-1.15em)}
+  50%,68%{transform:translateY(-2.3em)}
+  75%,93%{transform:translateY(-3.45em)}
+  100%{transform:translateY(0)}
+}
+.hero-rotator span{display:block;white-space:nowrap}
+
+.hero-sub-row{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-top:3.5rem;opacity:0;
+}
+.hero-sub{font-size:.95rem;color:var(--muted);line-height:2;max-width:380px}
+.hero-actions{display:flex;flex-direction:column;gap:1rem;align-items:flex-end}
+.btn-primary{
+  font-family:var(--sans);font-size:.82rem;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;
+  color:#fff;background:var(--blue);
+  padding:.85rem 2.2rem;border-radius:4px;display:inline-block;
+  position:relative;overflow:hidden;transition:box-shadow .3s;
+}
+.btn-primary::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.2),transparent);
+  transform:translateX(-100%) skewX(-20deg);transition:transform .5s var(--ease-out);
+}
+.btn-primary:hover::before{transform:translateX(200%) skewX(-20deg)}
+.btn-primary:hover{box-shadow:0 0 50px rgba(29,94,255,.5)}
+.btn-ghost{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;
+  color:var(--muted);display:flex;align-items:center;gap:.5rem;
+  transition:color .2s;
+}
+.btn-ghost:hover{color:var(--white)}
+.btn-ghost::after{content:'↗';transition:transform .2s}
+.btn-ghost:hover::after{transform:translate(2px,-2px)}
+
+/* stats strip */
+.hero-stats-strip{
+  display:flex;gap:0;border-top:1px solid var(--line);
+  padding-top:2rem;margin-top:5rem;
+  opacity:0;
+}
+.hs{padding-right:3.5rem;margin-right:3.5rem;border-right:1px solid var(--line)}
+.hs:last-child{border-right:none;margin-right:0;padding-right:0}
+.hs-n{font-family:var(--serif);font-size:3rem;font-weight:300;color:var(--white);letter-spacing:-.04em;line-height:1}
+.hs-n b{color:var(--blue2);font-weight:600}
+.hs-l{font-family:var(--mono);font-size:.58rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-top:.4rem}
+
+/* scroll indicator */
+.scroll-ind{
+  position:absolute;bottom:2.5rem;left:4rem;z-index:4;
+  display:flex;align-items:center;gap:1rem;
+  opacity:0;animation:fadeUp .8s 2s forwards;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.scroll-mouse{width:24px;height:38px;border:1px solid var(--line2);border-radius:12px;position:relative;display:flex;justify-content:center;padding-top:6px}
+.scroll-wheel{width:4px;height:8px;background:var(--blue2);border-radius:2px;animation:scrollWheel 1.8s ease-in-out infinite}
+@keyframes scrollWheel{0%,100%{opacity:1;transform:translateY(0)}50%{opacity:.3;transform:translateY(8px)}}
+.scroll-label{font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--hint)}
+
+/* ═══════════════════════════════════
+   MARQUEE
+═══════════════════════════════════ */
+.marquee-wrap{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;background:var(--ink2)}
+.marquee-inner{padding:.92rem 0}
+.marquee-track{display:flex;gap:0;width:max-content;animation:mq 28s linear infinite}
+.marquee-track.rev{animation:mqr 28s linear infinite}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes mqr{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.mq-item{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--hint);white-space:nowrap;padding:0 2.8rem;
+  display:flex;align-items:center;gap:2.8rem;
+}
+.mq-item::after{content:'◆';color:var(--blue);font-size:.36rem;opacity:.5}
+
+/* ═══════════════════════════════════
+   ABOUT
+═══════════════════════════════════ */
+#about{background:var(--ink2);border-top:1px solid var(--line);position:relative;overflow:hidden}
+.about-bg-num{
+  position:absolute;right:-2%;top:50%;transform:translateY(-50%);
+  font-family:var(--serif);font-size:30vw;font-weight:700;
+  color:rgba(255,255,255,.018);line-height:1;
+  pointer-events:none;user-select:none;
+  will-change:transform;
+}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:10rem;align-items:center;max-width:1400px;margin:0 auto;padding:140px 4rem}
+.about-img-wrap{position:relative}
+/* stacked cards parallax */
+.img-stack{position:relative;height:580px}
+.img-card{
+  position:absolute;border-radius:3px;overflow:hidden;
+  border:1px solid var(--line2);
+}
+.img-card-1{width:75%;left:0;top:0;height:420px;will-change:transform}
+.img-card-2{width:60%;right:0;bottom:0;height:320px;will-change:transform;z-index:2}
+.img-card img{width:100%;height:100%;object-fit:cover;filter:grayscale(.2) contrast(1.08)}
+.img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,15,18,.6) 0%,transparent 50%)}
+.img-caption{
+  position:absolute;bottom:0;left:0;right:0;padding:1.2rem 1.5rem;
+  background:rgba(14,15,18,.75);backdrop-filter:blur(10px);
+  border-top:1px solid var(--line2);
+}
+.img-cap-name{font-family:var(--serif);font-size:1.15rem;font-weight:600;color:var(--white)}
+.img-cap-role{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue2);margin-top:.2rem}
+.exp-box{
+  position:absolute;top:-1.5rem;right:-1.5rem;
+  width:100px;height:100px;background:var(--ink3);
+  border:1px solid var(--line2);border-radius:3px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  z-index:3;
+}
+.exp-num{font-family:var(--serif);font-size:2.4rem;font-weight:300;color:var(--blue2);line-height:1}
+.exp-lbl{font-family:var(--mono);font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.3rem;text-align:center;line-height:1.5}
+.about-eyebrow{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue2);display:flex;align-items:center;gap:.7rem;margin-bottom:1.6rem}
+.about-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--blue2)}
+.about-h2{font-family:var(--serif);font-size:clamp(2.5rem,4vw,3.8rem);font-weight:300;letter-spacing:-.04em;color:var(--white);line-height:1.08;margin-bottom:2rem}
+.about-h2 em{font-style:italic;color:rgba(255,255,255,.5)}
+.about-body{font-size:.92rem;color:var(--muted);line-height:2;max-width:480px}
+.about-body+.about-body{margin-top:1rem}
+.about-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem}
+.atag{font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;color:var(--white);background:rgba(255,255,255,.05);border:1px solid var(--line2);padding:.3rem .85rem;border-radius:2px;transition:background .2s,border-color .2s}
+.atag:hover{background:var(--glow);border-color:rgba(77,119,255,.35)}
+.trust-row{display:flex;gap:2rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--line)}
+.trust{text-align:center}
+.trust-n{font-family:var(--serif);font-size:1.8rem;font-weight:600;color:var(--white);letter-spacing:-.03em}
+.trust-n b{color:var(--blue2)}
+.trust-l{font-family:var(--mono);font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.2rem}
+
+/* ═══════════════════════════════════
+   SERVICES
+═══════════════════════════════════ */
+#services{background:var(--ink);border-top:1px solid var(--line);position:relative;overflow:hidden;padding:140px 4rem}
+.svc-bg-stripe{
+  position:absolute;top:0;bottom:0;left:50%;width:1px;
+  background:linear-gradient(to bottom,transparent,rgba(77,119,255,.1) 20%,rgba(77,119,255,.1) 80%,transparent);
+}
+.svc-head{display:flex;align-items:flex-end;justify-content:space-between;gap:3rem;margin-bottom:5rem;max-width:1400px;margin-left:auto;margin-right:auto}
+.svc-eyebrow{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue2);display:flex;align-items:center;gap:.7rem;margin-bottom:1.4rem}
+.svc-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--blue2)}
+.svc-h2{font-family:var(--serif);font-size:clamp(2.5rem,4vw,3.8rem);font-weight:300;letter-spacing:-.04em;color:var(--white);line-height:1.08}
+.svc-h2 em{font-style:italic}
+.svc-intro{font-size:.9rem;color:var(--muted);line-height:1.9;max-width:320px;flex-shrink:0}
+/* accordion-style services */
+.svc-list{max-width:1400px;margin:0 auto;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.svc-row{
+  display:grid;grid-template-columns:80px 1fr auto;
+  gap:0;align-items:stretch;
+  border-bottom:1px solid var(--line);
+  transition:background .4s;
+  position:relative;overflow:hidden;cursor:default;
+}
+.svc-row:last-child{border-bottom:none}
+.svc-row::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--glow),transparent);
+  opacity:0;transition:opacity .5s;
+}
+.svc-row:hover{background:var(--ink2)}
+.svc-row:hover::before{opacity:1}
+.svc-row-num{
+  display:flex;align-items:center;justify-content:center;
+  border-right:1px solid var(--line);
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;color:var(--hint);
+  padding:2rem;
+}
+.svc-row-body{padding:2.2rem 2.5rem;display:flex;flex-direction:column;justify-content:center}
+.svc-row-title{font-family:var(--serif);font-size:1.7rem;font-weight:600;color:var(--white);letter-spacing:-.03em;margin-bottom:.5rem;transition:color .3s}
+.svc-row:hover .svc-row-title{color:var(--blue2)}
+.svc-row-desc{font-size:.82rem;color:var(--muted);line-height:1.85;max-width:600px}
+.svc-row-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:1rem}
+.svc-tag{font-family:var(--mono);font-size:.55rem;letter-spacing:.08em;color:var(--blue3);background:rgba(77,136,255,.07);border:1px solid rgba(77,136,255,.15);padding:.15rem .65rem;border-radius:2px}
+.svc-row-icon{
+  display:flex;align-items:center;justify-content:center;
+  padding:2rem 2.5rem;border-left:1px solid var(--line);
+}
+.svc-row-icon svg{
+  width:32px;height:32px;stroke:var(--hint);fill:none;stroke-width:1.4;
+  stroke-linecap:round;stroke-linejoin:round;
+  transition:stroke .3s,transform .4s var(--ease-out);
+}
+.svc-row:hover .svc-row-icon svg{stroke:var(--blue2);transform:scale(1.15) rotate(-5deg)}
+
+/* ═══════════════════════════════════
+   WORK
+═══════════════════════════════════ */
+#work{background:var(--ink2);border-top:1px solid var(--line);padding:140px 4rem;position:relative;overflow:hidden}
+.work-eyebrow{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue2);display:flex;align-items:center;gap:.7rem;margin-bottom:1.4rem;max-width:1400px;margin-left:auto;margin-right:auto}
+.work-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--blue2)}
+.work-head-row{display:flex;align-items:flex-end;justify-content:space-between;gap:3rem;margin-bottom:5rem;max-width:1400px;margin-left:auto;margin-right:auto}
+.work-h2{font-family:var(--serif);font-size:clamp(2.5rem,4vw,3.8rem);font-weight:300;letter-spacing:-.04em;color:var(--white);line-height:1.08}
+.work-h2 em{font-style:italic}
+.work-note{font-size:.85rem;color:var(--muted);line-height:1.9;max-width:300px;flex-shrink:0}
+
+/* horizontal scroll projects */
+.work-scroll-wrap{overflow:hidden;max-width:1400px;margin:0 auto}
+.work-track{display:flex;gap:1.5rem;will-change:transform}
+.proj{
+  flex:0 0 420px;background:var(--ink3);border:1px solid var(--line);
+  border-radius:4px;overflow:hidden;position:relative;cursor:default;
+  transition:border-color .4s,box-shadow .4s;
+}
+.proj:hover{border-color:rgba(77,119,255,.35);box-shadow:0 0 60px rgba(29,94,255,.1)}
+.proj-img{height:260px;overflow:hidden;position:relative}
+.proj-img img{transition:transform .8s var(--ease-out);filter:grayscale(.3) contrast(1.05)}
+.proj:hover .proj-img img{transform:scale(1.05)}
+.proj-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--ink3) 0%,transparent 50%)}
+.proj-body{padding:1.8rem 2rem}
+.proj-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
+.proj-n{font-family:var(--mono);font-size:.58rem;letter-spacing:.15em;color:var(--hint)}
+.proj-location{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;color:var(--muted)}
+.proj-title{font-family:var(--serif);font-size:1.45rem;font-weight:600;color:var(--white);letter-spacing:-.03em;margin-bottom:.6rem;transition:color .3s}
+.proj:hover .proj-title{color:var(--blue2)}
+.proj-desc{font-size:.78rem;color:var(--muted);line-height:1.85}
+.proj-footer{padding:1.2rem 2rem;border-top:1px solid var(--line);display:flex;gap:.5rem;flex-wrap:wrap}
+.proj-tag{font-family:var(--mono);font-size:.55rem;letter-spacing:.07em;color:var(--blue3);background:rgba(77,136,255,.07);border:1px solid rgba(77,136,255,.12);padding:.15rem .6rem;border-radius:2px}
+
+/* drag hint */
+.drag-hint{
+  max-width:1400px;margin:2rem auto 0;
+  display:flex;align-items:center;gap:.8rem;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--hint);
+}
+.drag-hint-line{flex:1;height:1px;background:var(--line)}
+
+/* ═══════════════════════════════════
+   PROCESS
+═══════════════════════════════════ */
+#process{background:var(--ink);border-top:1px solid var(--line);padding:140px 4rem;position:relative;overflow:hidden}
+/* vertical timeline */
+.proc-inner{max-width:1400px;margin:0 auto}
+.proc-header{text-align:center;max-width:600px;margin:0 auto 6rem}
+.proc-eyebrow{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue2);display:flex;align-items:center;justify-content:center;gap:.7rem;margin-bottom:1.4rem}
+.proc-eyebrow::before,.proc-eyebrow::after{content:'';display:block;width:20px;height:1px;background:var(--blue2)}
+.proc-h2{font-family:var(--serif);font-size:clamp(2.5rem,4vw,3.8rem);font-weight:300;letter-spacing:-.04em;color:var(--white);line-height:1.08}
+.proc-h2 em{font-style:italic}
+.proc-sub{font-size:.88rem;color:var(--muted);line-height:1.9;margin-top:1rem}
+.proc-timeline{position:relative;display:grid;grid-template-columns:1fr 80px 1fr;gap:0;align-items:start}
+.proc-col-l{display:flex;flex-direction:column;gap:0}
+.proc-col-r{display:flex;flex-direction:column;gap:0}
+.proc-axis{display:flex;flex-direction:column;align-items:center;padding-top:2rem}
+.proc-axis-line{flex:1;width:1px;background:linear-gradient(to bottom,rgba(77,119,255,.3),rgba(77,119,255,.05))}
+.proc-step{padding:2.5rem 3rem;position:relative}
+.proc-step.right{padding-left:3rem;padding-right:0;text-align:left}
+.proc-step.left{padding-right:3rem;padding-left:0;text-align:right}
+.proc-dot-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem}
+.proc-n{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--hint);margin-bottom:.7rem}
+.proc-title{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--white);letter-spacing:-.03em;margin-bottom:.7rem}
+.proc-desc{font-size:.82rem;color:var(--muted);line-height:1.9}
+/* axis node */
+.axis-node{
+  width:48px;height:48px;border-radius:50%;
+  border:1px solid rgba(77,119,255,.35);background:var(--ink2);
+  display:flex;align-items:center;justify-content:center;
+  margin:2rem 0;position:relative;z-index:1;
+  transition:border-color .3s,background .3s;
+}
+.axis-node svg{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s}
+.axis-node:hover{border-color:var(--blue);background:var(--glow)}
+.axis-node:hover svg{stroke:var(--blue2)}
+
+/* ═══════════════════════════════════
+   CONTACT
+═══════════════════════════════════ */
+#contact{background:var(--ink2);border-top:1px solid var(--line);padding:140px 4rem;position:relative;overflow:hidden}
+.contact-bg-text{
+  position:absolute;bottom:-5%;right:-2%;
+  font-family:var(--serif);font-size:20vw;font-weight:700;
+  color:rgba(255,255,255,.015);line-height:1;
+  pointer-events:none;user-select:none;will-change:transform;
+}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10rem;max-width:1400px;margin:0 auto;align-items:start}
+.ct-eyebrow{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue2);display:flex;align-items:center;gap:.7rem;margin-bottom:1.4rem}
+.ct-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--blue2)}
+.ct-h2{font-family:var(--serif);font-size:clamp(2.8rem,5vw,4.5rem);font-weight:300;letter-spacing:-.05em;color:var(--white);line-height:.98;margin-bottom:2rem}
+.ct-h2 em{font-style:italic;color:var(--blue2)}
+.ct-body{font-size:.9rem;color:var(--muted);line-height:2;max-width:380px}
+.channels{margin-top:3rem;display:flex;flex-direction:column;gap:.8rem}
+.ch{
+  display:flex;align-items:center;gap:1.2rem;
+  padding:1.2rem 1.4rem;
+  background:var(--ink3);border:1px solid var(--line);border-radius:3px;
+  transition:border-color .3s,background .3s;
+  position:relative;overflow:hidden;
+}
+.ch::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:linear-gradient(to bottom,var(--blue),var(--blue2));
+  transform:scaleY(0);transform-origin:top;transition:transform .4s var(--ease-out);
+}
+.ch:hover{border-color:rgba(77,119,255,.3);background:rgba(77,119,255,.04)}
+.ch:hover::before{transform:scaleY(1)}
+.ch-ico{
+  width:38px;height:38px;border-radius:50%;background:rgba(29,94,255,.12);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.ch-ico svg{width:14px;height:14px;stroke:var(--blue2);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ch-lbl{font-family:var(--mono);font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ch-val{font-size:.88rem;color:var(--white);font-weight:500;margin-top:.15rem}
+.ch-avail{font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;color:var(--muted);margin-left:auto}
+
+/* form */
+.ct-form{background:var(--ink3);border:1px solid var(--line);border-radius:4px;padding:3rem}
+.ct-form-title{font-family:var(--serif);font-size:1.6rem;font-weight:600;color:var(--white);letter-spacing:-.03em;margin-bottom:.4rem}
+.ct-form-sub{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;color:var(--muted);margin-bottom:2.5rem}
+.fg{margin-bottom:1.5rem}
+.fl{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.6rem}
+.fi,.ft{
+  width:100%;background:var(--ink2);border:1px solid var(--line2);
+  border-radius:3px;padding:.88rem 1.1rem;
+  font-family:var(--sans);font-size:.88rem;color:var(--white);
+  outline:none;transition:border-color .25s,box-shadow .25s;
+}
+.fi::placeholder,.ft::placeholder{color:var(--hint)}
+.fi:focus,.ft:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(29,94,255,.12)}
+.ft{min-height:120px;resize:vertical}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fsub{
+  width:100%;font-family:var(--sans);font-size:.82rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:#fff;background:var(--blue);border:none;
+  padding:1rem;border-radius:3px;cursor:none;
+  transition:background .25s,box-shadow .25s,transform .2s;
+  position:relative;overflow:hidden;
+}
+.fsub::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+  transform:translateX(-100%) skewX(-20deg);transition:transform .5s var(--ease-out);
+}
+.fsub:hover::before{transform:translateX(200%) skewX(-20deg)}
+.fsub:hover{background:#1349e8;box-shadow:0 0 40px rgba(29,94,255,.45);transform:translateY(-1px)}
+
+/* ═══════════════════════════════════
+   CTA
+═══════════════════════════════════ */
+#cta{
+  background:var(--ink);border-top:1px solid var(--line);
+  padding:140px 4rem;text-align:center;position:relative;overflow:hidden;
+}
+.cta-bg-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 80% at 50% 50%,rgba(29,94,255,.07) 0%,transparent 65%);
+}
+.cta-rings{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.cta-ring{
+  position:absolute;border:1px solid rgba(77,119,255,.07);border-radius:50%;
+  animation:expandRing 4s ease-out infinite;
+}
+.cta-ring:nth-child(1){width:400px;height:400px;animation-delay:0s}
+.cta-ring:nth-child(2){width:600px;height:600px;animation-delay:1s}
+.cta-ring:nth-child(3){width:800px;height:800px;animation-delay:2s}
+@keyframes expandRing{0%{opacity:.4;transform:scale(.9)}100%{opacity:0;transform:scale(1.1)}}
+.cta-content{position:relative;z-index:1;max-width:820px;margin:0 auto}
+.cta-eyebrow{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue2);display:flex;align-items:center;justify-content:center;gap:.7rem;margin-bottom:1.5rem}
+.cta-eyebrow::before,.cta-eyabrow::after{content:'';display:block;width:20px;height:1px;background:var(--blue2)}
+.cta-h2{font-family:var(--serif);font-size:clamp(3rem,6vw,6rem);font-weight:300;color:var(--white);letter-spacing:-.05em;line-height:.96;margin-bottom:1.5rem}
+.cta-h2 em{font-style:italic;color:var(--blue2)}
+.cta-sub{font-size:.95rem;color:var(--muted);line-height:1.9;max-width:500px;margin:0 auto 3rem}
+.cta-btns{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+.btn-wa{
+  font-family:var(--sans);font-size:.82rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:#fff;background:#25d366;padding:.85rem 2rem;border-radius:4px;
+  display:inline-flex;align-items:center;gap:.5rem;
+  transition:background .2s,transform .2s,box-shadow .2s;
+}
+.btn-wa:hover{background:#1db954;transform:translateY(-2px);box-shadow:0 12px 30px rgba(37,211,102,.3)}
+.btn-wa svg{width:16px;height:16px;fill:#fff}
+
+/* ═══════════════════════════════════
+   FOOTER
+═══════════════════════════════════ */
+footer{background:var(--ink);border-top:1px solid var(--line);padding:5rem 4rem 2.5rem}
+.footer-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:5rem;padding-bottom:4rem;border-bottom:1px solid var(--line)}
+.fbrand{font-family:var(--serif);font-size:1.7rem;font-weight:600;color:var(--white);letter-spacing:-.04em;margin-bottom:1rem}
+.fbrand .dot{color:var(--blue2)}
+.ftagline{font-size:.8rem;color:var(--muted);line-height:1.9;max-width:310px}
+.fcol h4{font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--hint);margin-bottom:1.3rem}
+.fcol a{display:block;font-size:.82rem;color:var(--muted);margin-bottom:.7rem;transition:color .2s}
+.fcol a:hover{color:var(--white)}
+.footer-bottom{max-width:1400px;margin:0 auto;padding-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.fcp{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;color:var(--hint)}
+
+/* ═══════════════════════════════════
+   FLOATING PILL
+═══════════════════════════════════ */
+.fpill{
+  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);
+  z-index:180;
+  background:rgba(14,15,18,.88);backdrop-filter:blur(24px);
+  border:1px solid var(--line2);border-radius:50px;
+  padding:.6rem;display:flex;gap:.3rem;
+  opacity:0;pointer-events:none;
+  transition:opacity .5s,transform .5s;
+  transform:translateX(-50%) translateY(20px);
+}
+.fpill.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.fpill-btn{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;
+  color:rgba(255,255,255,.55);padding:.48rem 1.1rem;border-radius:50px;
+  transition:all .2s;white-space:nowrap;cursor:none;
+}
+.fpill-btn:hover{background:rgba(255,255,255,.07);color:var(--white)}
+.fpill-btn.primary{background:var(--blue);color:#fff}
+.fpill-btn.primary:hover{background:#1349e8;box-shadow:0 0 24px rgba(29,94,255,.4)}
+.fpill-sep{width:1px;background:var(--line);align-self:center;height:18px}
+
+/* ═══════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════ */
+@media(max-width:1100px){
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:4rem}
+  .proc-timeline{grid-template-columns:1fr;gap:0}
+  .proc-col-r,.proc-axis{display:none}
+  .proc-step.left{text-align:left;padding:1.5rem 0}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:3rem}
+  .work-head-row,.svc-head{flex-direction:column;align-items:flex-start;gap:1.5rem}
+}
+@media(max-width:768px){
+  #nav{padding:0 1.5rem}
+  .nav-links{display:none}
+  #hero{padding:0 1.5rem}
+  .hero-inner{padding:0 1.5rem}
+  .hero-badge{display:none}
+  .hero-stats-strip{flex-wrap:wrap;gap:2rem}
+  .hs{border-right:none;padding-right:0;margin-right:0}
+  .about-grid,.contact-grid{gap:3rem}
+  .img-stack{height:380px}
+  .img-card-1{height:280px}
+  .img-card-2{display:none}
+  .about-grid,.contact-grid{padding:80px 1.5rem}
+  #services,#work,#process,#contact,#cta{padding:80px 1.5rem}
+  footer{padding:4rem 1.5rem 2rem}
+  .footer-grid{grid-template-columns:1fr}
+  .frow{grid-template-columns:1fr}
+  .proc-step.left,.proc-step.right{padding:1.5rem 0}
+  .fpill{display:none}
+  .scroll-ind{display:none}
+  .svc-row{grid-template-columns:50px 1fr}
+  .svc-row-icon{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="c-wrap">
+  <div id="c-orb"></div>
+  <div id="c-ring"></div>
+  <div id="c-text">VIEW</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">iTechz<sup>™</sup></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="tel:+918605400518" class="nav-cta">+91 86054 00518</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-layer-1" id="hL1"></div>
+  <div class="hero-layer-2" id="hL2"></div>
+  <div class="hero-layer-3" id="hL3"></div>
+  <div class="hero-stripe"></div>
+
+  <!-- Rotating year badge -->
+  <div class="hero-badge" id="heroBadge">
+    <div class="hero-badge-inner">
+      <div class="hero-badge-num">7+</div>
+      <div class="hero-badge-txt">Years of<br>Excellence</div>
+    </div>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-kicker" id="hKicker">
+      <div class="kicker-line"></div>
+      <div class="kicker-txt">Mumbai · IT Engineering · Est. 2017</div>
+      <div class="status-pip"></div>
+      <div class="status-txt">Available Now</div>
+    </div>
+
+    <!-- Word-by-word reveal headline -->
+    <div class="hero-headline" id="hHead">
+      <div class="headline-line">
+        <span class="headline-word">Precision</span>
+      </div>
+      <div class="headline-line">
+        <span class="headline-word italic">craft</span>&nbsp;
+        <span class="headline-word">for every</span>
+      </div>
+      <div class="headline-line">
+        <!-- rotating word -->
+        <div class="hero-rotator-wrap">
+          <div class="hero-rotator">
+            <span>device.</span>
+            <span>network.</span>
+            <span>system.</span>
+            <span>business.</span>
+            <span>device.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-sub-row" id="hSub">
+      <p class="hero-sub">From laptops to enterprise networks — fast diagnostics, transparent pricing, and guaranteed repairs. Seven days a week, across all of Mumbai.</p>
+      <div class="hero-actions">
+        <a href="tel:+918605400518" class="btn-primary">Book a Visit</a>
+        <a href="#work" class="btn-ghost">Explore our work</a>
+      </div>
+    </div>
+
+    <div class="hero-stats-strip" id="hStats">
+      <div class="hs"><div class="hs-n" data-target="500">0<b>+</b></div><div class="hs-l">Repairs Done</div></div>
+      <div class="hs"><div class="hs-n" data-target="7">0<b>yr</b></div><div class="hs-l">Experience</div></div>
+      <div class="hs"><div class="hs-n" data-target="4.9">0<b>★</b></div><div class="hs-l">Avg Rating</div></div>
+      <div class="hs"><div class="hs-n" data-target="24">0<b>hr</b></div><div class="hs-l">Turnaround</div></div>
+    </div>
+  </div>
+
+  <div class="scroll-ind">
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+    <div class="scroll-label">Scroll</div>
+  </div>
+</section>
+
+<!-- MARQUEE (double strip) -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <div class="marquee-track">
+      <span class="mq-item">Laptop Repair</span><span class="mq-item">Desktop Services</span><span class="mq-item">Network Setup</span><span class="mq-item">CCTV Installation</span><span class="mq-item">Software & OS</span><span class="mq-item">Printer Repair</span><span class="mq-item">Data Recovery</span><span class="mq-item">AMC Contracts</span><span class="mq-item">Laptop Repair</span><span class="mq-item">Desktop Services</span><span class="mq-item">Network Setup</span><span class="mq-item">CCTV Installation</span><span class="mq-item">Software & OS</span><span class="mq-item">Printer Repair</span><span class="mq-item">Data Recovery</span><span class="mq-item">AMC Contracts</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-bg-num" id="aboutBgNum">7</div>
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <div class="img-stack">
+        <div class="img-card img-card-1" id="imgCard1">
+          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80" alt="IT Work"/>
+          <div class="img-overlay"></div>
+        </div>
+        <div class="img-card img-card-2" id="imgCard2">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" alt="Shubham Kadam"/>
+          <div class="img-overlay"></div>
+          <div class="img-caption">
+            <div class="img-cap-name">Shubham Kadam</div>
+            <div class="img-cap-role">Lead IT Engineer</div>
+          </div>
+        </div>
+        <div class="exp-box">
+          <div class="exp-num">7+</div>
+          <div class="exp-lbl">Years of<br>Field Work</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-content">
+      <div class="about-eyebrow">About</div>
+      <h2 class="about-h2">The engineer<br>behind <em>iTechz.</em></h2>
+      <p class="about-body">Shubham Kadam is a certified IT engineer with over 7 years of hands-on experience maintaining and repairing technology for homes, offices, and businesses across Mumbai.</p>
+      <p class="about-body">Every job is handled personally — no outsourcing, no middlemen. You work directly with the engineer who fixes your device. Transparent pricing, fast turnaround, and a written warranty on every repair.</p>
+      <div class="about-tags">
+        <span class="atag">CompTIA A+</span>
+        <span class="atag">CCNA Certified</span>
+        <span class="atag">Microsoft Certified</span>
+        <span class="atag">CCTV Specialist</span>
+        <span class="atag">7 Days/Week</span>
+      </div>
+      <div class="trust-row">
+        <div class="trust"><div class="trust-n">500<b>+</b></div><div class="trust-l">Devices Fixed</div></div>
+        <div class="trust"><div class="trust-n">4.9<b>★</b></div><div class="trust-l">Avg Rating</div></div>
+        <div class="trust"><div class="trust-n">200<b>+</b></div><div class="trust-l">Businesses Served</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="svc-bg-stripe"></div>
+  <div class="svc-head">
+    <div>
+      <div class="svc-eyebrow">Services</div>
+      <h2 class="svc-h2">What we <em>fix & build.</em></h2>
+    </div>
+    <p class="svc-intro">Full-spectrum IT support — hardware, software, networks, and security — for individuals and businesses across Mumbai.</p>
+  </div>
+  <div class="svc-list">
+    <div class="svc-row">
+      <div class="svc-row-num">01</div>
+      <div class="svc-row-body">
+        <div class="svc-row-title">Laptop Repair</div>
+        <div class="svc-row-desc">Screen replacements, keyboard fixes, battery swaps, motherboard diagnostics, overheating solutions, and SSD/RAM upgrades — all brands covered with quality parts.</div>
+        <div class="svc-row-tags"><span class="svc-tag">Hardware</span><span class="svc-tag">All Brands</span><span class="svc-tag">Same Day</span></div>
+      </div>
+      <div class="svc-row-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+    </div>
+    <div class="svc-row">
+      <div class="svc-row-num">02</div>
+      <div class="svc-row-body">
+        <div class="svc-row-title">Desktop Services</div>
+        <div class="svc-row-desc">Custom PC builds, hardware upgrades, component diagnosis, GPU fitting, full cleaning and tune-ups, and performance optimisation for workstations and gaming rigs.</div>
+        <div class="svc-row-tags"><span class="svc-tag">Builds</span><span class="svc-tag">Upgrades</span><span class="svc-tag">Workstation</span></div>
+      </div>
+      <div class="svc-row-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg></div>
+    </div>
+    <div class="svc-row">
+      <div class="svc-row-num">03</div>
+      <div class="svc-row-body">
+        <div class="svc-row-title">Network & WiFi Setup</div>
+        <div class="svc-row-desc">LAN/WAN planning, router configuration, office mesh WiFi deployment, structured cabling, VPN setup, and ongoing network monitoring and troubleshooting.</div>
+        <div class="svc-row-tags"><span class="svc-tag">LAN/WAN</span><span class="svc-tag">Mesh WiFi</span><span class="svc-tag">VPN</span></div>
+      </div>
+      <div class="svc-row-icon"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/></svg></div>
+    </div>
+    <div class="svc-row">
+      <div class="svc-row-num">04</div>
+      <div class="svc-row-body">
+        <div class="svc-row-title">CCTV Installation</div>
+        <div class="svc-row-desc">HD and IP security camera systems for homes and offices — full installation, DVR/NVR configuration, remote mobile viewing setup, and maintenance contracts.</div>
+        <div class="svc-row-tags"><span class="svc-tag">HD/IP Cameras</span><span class="svc-tag">Remote View</span><span class="svc-tag">AMC</span></div>
+      </div>
+      <div class="svc-row-icon"><svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+    </div>
+    <div class="svc-row">
+      <div class="svc-row-num">05</div>
+      <div class="svc-row-body">
+        <div class="svc-row-title">Software & OS</div>
+        <div class="svc-row-desc">Windows and Linux installation, virus and malware removal, system optimisation, driver updates, Microsoft Office setup, and software licensing — all sorted.</div>
+        <div class="svc-row-tags"><span class="svc-tag">Windows</span><span class="svc-tag">Linux</span><span class="svc-tag">Virus Removal</span></div>
+      </div>
+      <div class="svc-row-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+    </div>
+    <div class="svc-row">
+      <div class="svc-row-num">06</div>
+      <div class="svc-row-body">
+        <div class="svc-row-title">Printer Repair & AMC</div>
+        <div class="svc-row-desc">Inkjet and laser printer servicing, cartridge and drum replacement, paper jam resolution, driver setup, and network printer configuration for offices.</div>
+        <div class="svc-row-tags"><span class="svc-tag">Inkjet/Laser</span><span class="svc-tag">Network Print</span><span class="svc-tag">Contract</span></div>
+      </div>
+      <div class="svc-row-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="work-eyebrow">Work</div>
+  <div class="work-head-row">
+    <h2 class="work-h2">Selected <em>projects.</em></h2>
+    <p class="work-note">Recent engagements across Mumbai — from home offices to enterprise infrastructure.</p>
+  </div>
+  <div class="work-scroll-wrap">
+    <div class="work-track" id="workTrack">
+      <div class="proj">
+        <div class="proj-img">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="Network Overhaul"/>
+          <div class="proj-img-overlay"></div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-meta"><div class="proj-n">01</div><div class="proj-location">Andheri East</div></div>
+          <div class="proj-title">Corporate Office Network Overhaul</div>
+          <div class="proj-desc">120-node structured cabling, server room setup, VLAN configuration, and 10Gbps backbone for a 200-seat corporate campus.</div>
+        </div>
+        <div class="proj-footer"><span class="proj-tag">Networking</span><span class="proj-tag">Server Room</span><span class="proj-tag">Cabling</span></div>
+      </div>
+      <div class="proj">
+        <div class="proj-img">
+          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&q=80" alt="CCTV Retail"/>
+          <div class="proj-img-overlay"></div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-meta"><div class="proj-n">02</div><div class="proj-location">Bandra</div></div>
+          <div class="proj-title">Retail Chain CCTV Deployment</div>
+          <div class="proj-desc">6 retail outlets, 48 IP cameras with centralised NVR monitoring and mobile remote-view access for store managers.</div>
+        </div>
+        <div class="proj-footer"><span class="proj-tag">CCTV</span><span class="proj-tag">NVR</span><span class="proj-tag">Remote View</span></div>
+      </div>
+      <div class="proj">
+        <div class="proj-img">
+          <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&q=80" alt="Laptop Fleet"/>
+          <div class="proj-img-overlay"></div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-meta"><div class="proj-n">03</div><div class="proj-location">Powai</div></div>
+          <div class="proj-title">SME Laptop Fleet Recovery</div>
+          <div class="proj-desc">35 business laptops: SSD upgrades, full OS reinstalls, data migration, and domain re-enrollment — completed in 3 days.</div>
+        </div>
+        <div class="proj-footer"><span class="proj-tag">Laptop</span><span class="proj-tag">Data Migration</span><span class="proj-tag">Upgrade</span></div>
+      </div>
+      <div class="proj">
+        <div class="proj-img">
+          <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&q=80" alt="Home Office"/>
+          <div class="proj-img-overlay"></div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-meta"><div class="proj-n">04</div><div class="proj-location">Juhu</div></div>
+          <div class="proj-title">Home Office Complete Setup</div>
+          <div class="proj-desc">Mesh WiFi system, custom desktop build, NAS storage, UPS, and full remote-work software configuration for a creative director.</div>
+        </div>
+        <div class="proj-footer"><span class="proj-tag">Home Office</span><span class="proj-tag">WiFi Mesh</span><span class="proj-tag">NAS</span></div>
+      </div>
+      <div class="proj">
+        <div class="proj-img">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="School Lab"/>
+          <div class="proj-img-overlay"></div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-meta"><div class="proj-n">05</div><div class="proj-location">Chembur</div></div>
+          <div class="proj-title">School Lab Annual AMC</div>
+          <div class="proj-desc">60-system computer lab under annual maintenance contract — quarterly servicing, emergency support, and OS updates year-round.</div>
+        </div>
+        <div class="proj-footer"><span class="proj-tag">AMC</span><span class="proj-tag">Education</span><span class="proj-tag">60 Systems</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="drag-hint">
+    <div class="drag-hint-line"></div>
+    <span>Drag to explore</span>
+    <div class="drag-hint-line"></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="proc-inner">
+    <div class="proc-header">
+      <div class="proc-eyebrow">Process</div>
+      <h2 class="proc-h2">Four steps.<br><em>No runaround.</em></h2>
+      <p class="proc-sub">A clear, consistent process so you always know what's happening — from first contact to final handover.</p>
+    </div>
+    <div class="proc-timeline">
+      <!-- Left col -->
+      <div class="proc-col-l">
+        <div class="proc-step left">
+          <div class="proc-n">01</div>
+          <div class="proc-title">Contact Us</div>
+          <p class="proc-desc">Call, WhatsApp, or fill the form. We respond within the hour, any day of the week, including public holidays. No hold music, no ticketing systems.</p>
+        </div>
+        <div style="height:160px"></div>
+        <div class="proc-step left">
+          <div class="proc-n">03</div>
+          <div class="proc-title">Clear Quote</div>
+          <p class="proc-desc">You receive a fixed, itemised quote before a single component is touched. No surprises, no upselling. You approve it first — always.</p>
+        </div>
+      </div>
+      <!-- Axis -->
+      <div class="proc-axis">
+        <div class="axis-node">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="proc-axis-line"></div>
+        <div class="axis-node">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="proc-axis-line"></div>
+        <div class="axis-node">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="proc-axis-line"></div>
+        <div class="axis-node">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+      </div>
+      <!-- Right col -->
+      <div class="proc-col-r">
+        <div style="height:80px"></div>
+        <div class="proc-step right">
+          <div class="proc-n">02</div>
+          <div class="proc-title">Diagnosis</div>
+          <p class="proc-desc">We visit your location or you bring the device. A thorough, honest diagnosis is completed at no charge — with no commitment required from you.</p>
+        </div>
+        <div style="height:100px"></div>
+        <div class="proc-step right">
+          <div class="proc-n">04</div>
+          <div class="proc-title">Fixed & Delivered</div>
+          <p class="proc-desc">Repaired, fully tested, and returned with a written service warranty. Free follow-up support is always included — we don't disappear after the job.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-bg-text" id="contactBgText">CALL</div>
+  <div class="contact-grid">
+    <div>
+      <div class="ct-eyebrow">Contact</div>
+      <h2 class="ct-h2">Let's fix it<br><em>together.</em></h2>
+      <p class="ct-body">Reach Shubham directly for the fastest response. Honest diagnosis, fixed pricing, and guaranteed results — every single time.</p>
+      <div class="channels">
+        <a class="ch" href="tel:+918605400518">
+          <div class="ch-ico"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><div class="ch-lbl">Phone</div><div class="ch-val">+91 86054 00518</div></div>
+          <div class="ch-avail">Mon–Sun 9–8</div>
+        </a>
+        <a class="ch" href="https://wa.me/918605400518" target="_blank">
+          <div class="ch-ico"><svg viewBox="0 0 24 24" fill="var(--blue2)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></div>
+          <div><div class="ch-lbl">WhatsApp</div><div class="ch-val">+91 86054 00518</div></div>
+          <div class="ch-avail">Instant reply</div>
+        </a>
+        <a class="ch" href="mailto:shubham@itechz.in">
+          <div class="ch-ico"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><div class="ch-lbl">Email</div><div class="ch-val">shubham@itechz.in</div></div>
+          <div class="ch-avail">Reply in 2–4hr</div>
+        </a>
+        <div class="ch">
+          <div class="ch-ico"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="ch-lbl">Location</div><div class="ch-val">Mumbai, Maharashtra</div></div>
+          <div class="ch-avail">On-site visits</div>
+        </div>
+      </div>
+    </div>
+    <div class="ct-form">
+      <div class="ct-form-title">Send a Message</div>
+      <div class="ct-form-sub">// We respond within the hour</div>
+      <div class="fg"><label class="fl">Your Name</label><input class="fi" type="text" placeholder="John Doe"/></div>
+      <div class="frow">
+        <div class="fg"><label class="fl">Phone</label><input class="fi" type="tel" placeholder="+91 98765 43210"/></div>
+        <div class="fg"><label class="fl">Email</label><input class="fi" type="email" placeholder="you@example.com"/></div>
+      </div>
+      <div class="fg"><label class="fl">Service / Issue</label><input class="fi" type="text" placeholder="e.g. Laptop screen cracked, need WiFi setup…"/></div>
+      <div class="fg"><label class="fl">Details</label><textarea class="ft" placeholder="Any extra context that would help…"></textarea></div>
+      <button class="fsub" id="formBtn">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-bg-glow"></div>
+  <div class="cta-rings">
+    <div class="cta-ring"></div>
+    <div class="cta-ring"></div>
+    <div class="cta-ring"></div>
+  </div>
+  <div class="cta-content">
+    <div class="cta-eyebrow"><span style="display:block;width:20px;height:1px;background:var(--blue2)"></span>Get In Touch<span style="display:block;width:20px;height:1px;background:var(--blue2)"></span></div>
+    <h2 class="cta-h2">Ready to fix it<br><em>the right way?</em></h2>
+    <p class="cta-sub">Call or WhatsApp Shubham directly. Fast response, honest pricing, guaranteed results — 7 days a week across Mumbai.</p>
+    <div class="cta-btns">
+      <a class="btn-primary" href="tel:+918605400518">Call: +91 86054 00518</a>
+      <a class="btn-wa" href="https://wa.me/918605400518" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        WhatsApp Us
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="fbrand">iTechz<span class="dot">.</span></div>
+      <p class="ftagline">Professional IT services for homes, offices and businesses across Mumbai. Hardware, networking, software and CCTV — all from one trusted engineer.</p>
+    </div>
+    <div class="fcol">
+      <h4>Services</h4>
+      <a href="#services">Laptop Repair</a>
+      <a href="#services">Desktop Services</a>
+      <a href="#services">Printer Repair</a>
+      <a href="#services">Software & OS</a>
+      <a href="#services">Network & WiFi</a>
+      <a href="#services">CCTV Installation</a>
+    </div>
+    <div class="fcol">
+      <h4>Company</h4>
+      <a href="#hero">Home</a>
+      <a href="#about">About Shubham</a>
+      <a href="#work">Portfolio</a>
+      <a href="#process">How It Works</a>
+    </div>
+    <div class="fcol">
+      <h4>Contact</h4>
+      <a href="tel:+918605400518">+91 86054 00518</a>
+      <a href="https://wa.me/918605400518">WhatsApp</a>
+      <a href="mailto:shubham@itechz.in">shubham@itechz.in</a>
+      <a href="#contact">Mumbai, Maharashtra</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="fcp">© 2026 iTechz Solutions. All rights reserved.</span>
+    <span class="fcp">Shubham Kadam · IT Engineer · Mumbai</span>
+  </div>
+</footer>
+
+<!-- FLOATING PILL -->
+<div class="fpill" id="fpill">
+  <a href="#about" class="fpill-btn">About</a>
+  <div class="fpill-sep"></div>
+  <a href="#services" class="fpill-btn">Services</a>
+  <div class="fpill-sep"></div>
+  <a href="#work" class="fpill-btn">Work</a>
+  <div class="fpill-sep"></div>
+  <a href="tel:+918605400518" class="fpill-btn primary">Call Now</a>
+</div>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ═══════════════════════════
+   CURSOR — magnetic + trail
+═══════════════════════════ */
+const orb = document.getElementById('c-orb');
+const ring = document.getElementById('c-ring');
+const ctxt = document.getElementById('c-text');
+// Trail dots
+const TRAIL_LEN = 10;
+const trail = [];
+for(let i=0;i<TRAIL_LEN;i++){
+  const d=document.createElement('div');
+  d.className='c-trail';
+  d.style.opacity=(1-(i/TRAIL_LEN))*0.6;
+  d.style.width=d.style.height=(4-i*0.25)+'px';
+  d.style.transition='none';
+  document.getElementById('c-wrap').appendChild(d);
+  trail.push({el:d,x:0,y:0});
+}
+
+let mx=window.innerWidth/2, my=window.innerHeight/2;
+let ringX=mx, ringY=my;
+const trailPoints=Array(TRAIL_LEN).fill({x:mx,y:my}).map(p=>({...p}));
+
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+
+// magnetic pull toward interactive elements
+let magEl=null, magStrength=0.3;
+document.querySelectorAll('a,button,.svc-row,.proj,.ch,.axis-node').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{magEl=el;document.body.classList.add('hov')});
+  el.addEventListener('mouseleave',()=>{magEl=null;document.body.classList.remove('hov')});
+});
+
+function lerp(a,b,t){return a+(b-a)*t}
+
+;(function tick(){
+  // orb snaps fast to mouse
+  orb.style.left=mx+'px';
+  orb.style.top=my+'px';
+
+  // ring lags behind
+  let tx=mx, ty=my;
+  if(magEl){
+    const r=magEl.getBoundingClientRect();
+    const cx=r.left+r.width/2, cy=r.top+r.height/2;
+    tx=lerp(mx,cx,0.35);
+    ty=lerp(my,cy,0.35);
+  }
+  ringX=lerp(ringX,tx,.1);
+  ringY=lerp(ringY,ty,.1);
+  ring.style.left=ringX+'px';
+  ring.style.top=ringY+'px';
+  ctxt.style.left=ringX+'px';
+  ctxt.style.top=(ringY+38)+'px';
+
+  // trail: shift and lerp each point toward the one ahead
+  trailPoints.unshift({x:mx,y:my});
+  trailPoints.pop();
+  trail.forEach((t,i)=>{
+    const p=trailPoints[Math.min(i*1.2|0,TRAIL_LEN-1)];
+    t.x=lerp(t.x,p.x,.25);
+    t.y=lerp(t.y,p.y,.25);
+    t.el.style.left=t.x+'px';
+    t.el.style.top=t.y+'px';
+  });
+
+  requestAnimationFrame(tick);
+})();
+
+// drag cursor state on work track
+const wt=document.getElementById('workTrack');
+let isDragging=false,startX=0,scrollLeft=0;
+wt.addEventListener('mousedown',e=>{
+  isDragging=true;startX=e.pageX-wt.offsetLeft;scrollLeft=wt.parentElement.scrollLeft;
+  document.body.classList.add('drag');wt.style.cursor='grabbing';
+});
+document.addEventListener('mouseup',()=>{
+  isDragging=false;document.body.classList.remove('drag');wt.style.cursor='';
+});
+document.addEventListener('mousemove',e=>{
+  if(!isDragging)return;
+  e.preventDefault();
+  const x=e.pageX-wt.offsetLeft;
+  wt.parentElement.scrollLeft=scrollLeft-(x-startX);
+});
+
+/* ═══════════════════════════
+   NAV solid
+═══════════════════════════ */
+const nav=document.getElementById('nav');
+const fpill=document.getElementById('fpill');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('solid',scrollY>60);
+  fpill.classList.toggle('show',scrollY>window.innerHeight*.5);
+},{passive:true});
+
+/* ═══════════════════════════
+   HERO ENTRANCE — stagger word reveals
+═══════════════════════════ */
+const words=document.querySelectorAll('.headline-word');
+gsap.to('#hKicker',{opacity:1,y:0,duration:.8,ease:'power3.out',delay:.2});
+gsap.to(words,{
+  y:0,duration:1.1,stagger:.12,ease:'power4.out',delay:.4,
+  onStart:()=>words.forEach(w=>w.style.willChange='transform')
+});
+gsap.to('#hSub',{opacity:1,y:0,duration:.9,ease:'power3.out',delay:1.0});
+gsap.to('#hStats',{opacity:1,y:0,duration:.9,ease:'power3.out',delay:1.2});
+
+/* ═══════════════════════════
+   MULTI-LAYER PARALLAX (mouse + scroll)
+═══════════════════════════ */
+// Mouse parallax on hero
+document.addEventListener('mousemove',e=>{
+  const px=(e.clientX/window.innerWidth-.5)*2;
+  const py=(e.clientY/window.innerHeight-.5)*2;
+  gsap.to('#hL1',{x:px*-18,y:py*-12,duration:1.2,ease:'power2.out'});
+  gsap.to('#hL2',{x:px*-30,y:py*-20,duration:1.4,ease:'power2.out'});
+  gsap.to('#heroBadge',{x:px*14,y:py*10,duration:1.6,ease:'power2.out'});
+});
+
+// Scroll parallax — hero layers
+gsap.to('#hL1',{yPercent:20,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+gsap.to('#hL2',{yPercent:35,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+gsap.to('#hL3',{yPercent:15,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+gsap.to('.hero-h1, #hHead',{yPercent:12,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+gsap.to('#hStats',{yPercent:8,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+
+// About image stack parallax
+gsap.to('#imgCard1',{yPercent:-8,ease:'none',scrollTrigger:{trigger:'#about',start:'top bottom',end:'bottom top',scrub:true}});
+gsap.to('#imgCard2',{yPercent:6,ease:'none',scrollTrigger:{trigger:'#about',start:'top bottom',end:'bottom top',scrub:true}});
+gsap.to('#aboutBgNum',{yPercent:15,ease:'none',scrollTrigger:{trigger:'#about',start:'top bottom',end:'bottom top',scrub:true}});
+
+// Contact bg text parallax
+gsap.to('#contactBgText',{yPercent:-20,ease:'none',scrollTrigger:{trigger:'#contact',start:'top bottom',end:'bottom top',scrub:true}});
+
+/* ═══════════════════════════
+   SECTION REVEALS
+═══════════════════════════ */
+// Generic reveal for most elements
+const revealEls=[
+  '.about-eyebrow','.about-h2','.about-body','.about-tags','.trust-row',
+  '.svc-eyebrow','.svc-h2','.svc-intro',
+  '.work-eyebrow','.work-h2','.work-note',
+  '.proc-header','.proc-step',
+  '.ct-eyebrow','.ct-h2','.ct-body','.channels','.ct-form',
+  '.cta-eyebrow','.cta-h2','.cta-sub','.cta-btns'
+];
+revealEls.forEach(sel=>{
+  document.querySelectorAll(sel).forEach((el,i)=>{
+    gsap.from(el,{
+      opacity:0,y:28,duration:.85,ease:'power3.out',
+      delay:i*0.06,
+      scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'}
+    });
+  });
+});
+
+// Service rows — stagger wipe
+document.querySelectorAll('.svc-row').forEach((el,i)=>{
+  gsap.from(el,{
+    opacity:0,x:-30,duration:.7,ease:'power3.out',
+    delay:i*0.07,
+    scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'}
+  });
+});
+
+// Projects — scale in
+document.querySelectorAll('.proj').forEach((el,i)=>{
+  gsap.from(el,{
+    opacity:0,scale:.96,y:20,duration:.8,ease:'power3.out',
+    delay:i*0.08,
+    scrollTrigger:{trigger:el,start:'top 90%',toggleActions:'play none none none'}
+  });
+});
+
+// Axis nodes — pop in
+document.querySelectorAll('.axis-node').forEach((el,i)=>{
+  gsap.from(el,{
+    opacity:0,scale:0,duration:.6,ease:'back.out(2)',
+    delay:i*0.15,
+    scrollTrigger:{trigger:el,start:'top 85%',toggleActions:'play none none none'}
+  });
+});
+
+// About img cards
+gsap.from('#imgCard1',{opacity:0,x:-40,duration:1,ease:'power3.out',scrollTrigger:{trigger:'#about',start:'top 80%',toggleActions:'play none none none'}});
+gsap.from('#imgCard2',{opacity:0,x:40,duration:1,ease:'power3.out',delay:.2,scrollTrigger:{trigger:'#about',start:'top 80%',toggleActions:'play none none none'}});
+
+/* ═══════════════════════════
+   STAT COUNT-UP
+═══════════════════════════ */
+const statEls=document.querySelectorAll('.hs-n[data-target]');
+const statObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    statObs.unobserve(e.target);
+    const target=parseFloat(e.target.dataset.target);
+    const isFloat=target%1!==0;
+    const suffix=e.target.querySelector('b')?.textContent||'';
+    let start=null,dur=1600;
+    requestAnimationFrame(function step(ts){
+      if(!start)start=ts;
+      const p=Math.min((ts-start)/dur,1);
+      const ease=1-Math.pow(1-p,3);
+      const val=isFloat?(ease*target).toFixed(1):Math.floor(ease*target);
+      e.target.innerHTML=val+'<b>'+suffix+'</b>';
+      if(p<1)requestAnimationFrame(step);
+    });
+  });
+},{threshold:.5});
+statEls.forEach(el=>statObs.observe(el));
+
+/* ═══════════════════════════
+   FORM SUBMIT
+═══════════════════════════ */
+document.getElementById('formBtn').addEventListener('click',function(){
+  this.textContent='✓ Message Sent!';
+  this.style.background='#22c55e';
+  setTimeout(()=>{this.textContent='Send Message →';this.style.background='';},3000);
+});
+
+/* ═══════════════════════════
+   HORIZONTAL WORK TRACK — touch drag
+═══════════════════════════ */
+const wWrap=document.querySelector('.work-scroll-wrap');
+let tStart=0;
+wWrap.addEventListener('touchstart',e=>tStart=e.touches[0].clientX,{passive:true});
+wWrap.addEventListener('touchmove',e=>{
+  const diff=tStart-e.touches[0].clientX;
+  wWrap.scrollLeft+=diff;
+  tStart=e.touches[0].clientX;
+},{passive:true});
+
+/* ═══════════════════════════
+   MARQUEE pause on hover
+═══════════════════════════ */
+document.querySelectorAll('.marquee-track').forEach(t=>{
+  t.addEventListener('mouseenter',()=>t.style.animationPlayState='paused');
+  t.addEventListener('mouseleave',()=>t.style.animationPlayState='running');
+});
+</script>
+</body>
+</html>
