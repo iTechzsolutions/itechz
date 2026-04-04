@@ -4,8 +4,7 @@ const NAV_HTML = `
 <nav id="nav">
   <div class="nav-inner">
     <a class="logo" href="index.html">
-      <div class="logo-mark">iT</div>
-      iTechz<span>&nbsp;Solutions</span>
+  <img src="Logo.png" alt="iTechz Logo">
     </a>
     <ul class="nav-links">
       <li><a href="index.html" data-page="index">Home</a></li>
