@@ -72,7 +72,7 @@ h1,h2,h3,h4 { line-height: 1.15; font-weight: 700; }
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
 }
 .logo-mark {
   width: 36px; height: 36px; background: var(--blue);
