@@ -5,6 +5,7 @@ const NAV_HTML = `
   <div class="nav-inner">
     <a class="logo" href="index.html">
   <img src="Logo.png" alt="iTechz Logo">
+  <span>iTechz Solutions</span>
     </a>
     <ul class="nav-links">
       <li><a href="index.html" data-page="index">Home</a></li>
