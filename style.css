@@ -72,7 +72,11 @@ h1,h2,h3,h4 { line-height: 1.15; font-weight: 700; }
   border-radius: 8px; display: grid; place-items: center;
   font-size: 13px; font-weight: 800; color: #fff; letter-spacing: -.5px;
 }
-.logo span { color: var(--blue); }
+.logo span { 
+  color: var(--blue);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.3px;}
 .nav-links {
   display: flex; gap: .25rem;
 }
