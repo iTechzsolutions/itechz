@@ -64,6 +64,11 @@ h1,h2,h3,h4 { line-height: 1.15; font-weight: 700; }
   font-weight: 800; font-size: 1.15rem; color: var(--navy);
   letter-spacing: -.3px;
 }
+.logo img {
+  height: 42px;
+  width: auto;
+  display: block;
+}
 .logo-mark {
   width: 36px; height: 36px; background: var(--blue);
   border-radius: 8px; display: grid; place-items: center;
