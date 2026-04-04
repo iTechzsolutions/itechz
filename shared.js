@@ -7,8 +7,7 @@ const NAV_HTML = `
   <img src="Logo.png" alt="iTechz Logo">
     </a>
     <a class="logo" href="index.html">
-  <img src="Logo.png" alt="logo">
-  <span>iTechz Solutions</span>
+    <span>iTechz Solutions</span>
     </a>
     <ul class="nav-links">
       <li><a href="index.html" data-page="index">Home</a></li>
