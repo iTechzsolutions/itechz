@@ -59,10 +59,13 @@ h1,h2,h3,h4 { line-height: 1.15; font-weight: 700; }
   max-width: 1200px; width: 100%; margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
 }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .logo img {
   height: 70px;
-  width: auto;
-  display: block;
 }
 .logo-mark {
   width: 36px; height: 36px; background: var(--blue);
