@@ -2,13 +2,13 @@
 <title>Illustration of a connected office network with a server rack, devices, and a security camera</title>
 <defs>
   <linearGradient id="rackGrad" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#222730"/>
-    <stop offset="1" stop-color="#16181d"/>
+    <stop offset="0" stop-color="#ffffff"/>
+    <stop offset="1" stop-color="#eef4f6"/>
   </linearGradient>
 </defs>
 
-<circle cx="300" cy="290" r="250" fill="#11182a"/>
-<circle cx="300" cy="290" r="250" fill="none" stroke="#2a3a5c" stroke-width="1.5" stroke-dasharray="2 8"/>
+<circle cx="300" cy="290" r="250" fill="#f2fafb"/>
+<circle cx="300" cy="290" r="250" fill="none" stroke="#c4dde4" stroke-width="1.5" stroke-dasharray="2 8"/>
 
 <g stroke="#3b82f6" stroke-width="2" opacity="0.45" fill="none">
   <path d="M300 290 L150 150"/>
@@ -20,8 +20,8 @@
 
 <g transform="translate(228,170)">
   <rect x="0" y="0" width="144" height="220" rx="10" fill="url(#rackGrad)"/>
-  <rect x="0" y="0" width="144" height="220" rx="10" fill="none" stroke="#30343a" stroke-width="1.5"/>
-  <g fill="#2b2f37">
+  <rect x="0" y="0" width="144" height="220" rx="10" fill="none" stroke="#d3e2e6" stroke-width="1.5"/>
+  <g fill="#f4f8f9">
     <rect x="14" y="18" width="116" height="26" rx="4"/>
     <rect x="14" y="54" width="116" height="26" rx="4"/>
     <rect x="14" y="90" width="116" height="26" rx="4"/>
@@ -33,44 +33,44 @@
   <circle cx="26" cy="103" r="3.5" fill="#f4bf4f"/>
   <circle cx="26" cy="139" r="3.5" fill="#5fb8a3"/>
   <circle cx="26" cy="175" r="3.5" fill="#5fb8a3"/>
-  <rect x="40" y="24" width="78" height="6" rx="2" fill="#454b54"/>
-  <rect x="40" y="60" width="60" height="6" rx="2" fill="#454b54"/>
-  <rect x="40" y="96" width="68" height="6" rx="2" fill="#454b54"/>
-  <rect x="40" y="132" width="50" height="6" rx="2" fill="#454b54"/>
-  <rect x="40" y="168" width="72" height="6" rx="2" fill="#454b54"/>
+  <rect x="40" y="24" width="78" height="6" rx="2" fill="#8ca4ae"/>
+  <rect x="40" y="60" width="60" height="6" rx="2" fill="#8ca4ae"/>
+  <rect x="40" y="96" width="68" height="6" rx="2" fill="#8ca4ae"/>
+  <rect x="40" y="132" width="50" height="6" rx="2" fill="#8ca4ae"/>
+  <rect x="40" y="168" width="72" height="6" rx="2" fill="#8ca4ae"/>
 </g>
 
 <g transform="translate(115,110)">
-  <rect x="0" y="0" width="76" height="56" rx="8" fill="#16203a" stroke="#2a3a5c" stroke-width="1.5"/>
+  <rect x="0" y="0" width="76" height="56" rx="8" fill="#ffffff" stroke="#c4dde4" stroke-width="1.5"/>
   <rect x="10" y="12" width="56" height="32" rx="3" fill="#3b82f6"/>
-  <path d="M24 28 L34 36 L52 18" stroke="#fafaf8" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24 28 L34 36 L52 18" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
   <circle cx="115" cy="86" r="5" fill="#3b82f6"/>
 </g>
 
 <g transform="translate(415,108)">
-  <rect x="0" y="0" width="64" height="64" rx="32" fill="#16203a" stroke="#2a3a5c" stroke-width="1.5"/>
+  <rect x="0" y="0" width="64" height="64" rx="32" fill="#ffffff" stroke="#c4dde4" stroke-width="1.5"/>
   <circle cx="32" cy="32" r="18" fill="none" stroke="#3b82f6" stroke-width="2.5"/>
   <circle cx="32" cy="32" r="6" fill="#3b82f6"/>
   <path d="M32 8 L32 2 M32 56 L32 62 M8 32 L2 32 M56 32 L62 32" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
 </g>
 
 <g transform="translate(420,330)">
-  <rect x="0" y="0" width="86" height="58" rx="10" fill="#16181d"/>
-  <path d="M62 18 L82 8 L82 50 L62 40 Z" fill="#30343a"/>
-  <rect x="8" y="14" width="48" height="30" rx="4" fill="#1f1f1f"/>
+  <rect x="0" y="0" width="86" height="58" rx="10" fill="#eef4f6"/>
+  <path d="M62 18 L82 8 L82 50 L62 40 Z" fill="#d3e2e6"/>
+  <rect x="8" y="14" width="48" height="30" rx="4" fill="#edf5f7"/>
   <circle cx="20" cy="29" r="3" fill="#ec6a5e"/>
-  <text x="0" y="-10" class="t" fill="#9499a6" font-size="12" font-family="Manrope, sans-serif" font-weight="600">CCTV</text>
+  <text x="0" y="-10" class="t" fill="#5f7380" font-size="12" font-family="Manrope, sans-serif" font-weight="600">CCTV</text>
 </g>
 
 <g transform="translate(95,345)">
-  <rect x="0" y="0" width="80" height="56" rx="8" fill="#16203a" stroke="#2a3a5c" stroke-width="1.5"/>
+  <rect x="0" y="0" width="80" height="56" rx="8" fill="#ffffff" stroke="#c4dde4" stroke-width="1.5"/>
   <rect x="12" y="12" width="56" height="22" rx="3" fill="none" stroke="#3b82f6" stroke-width="2"/>
-  <rect x="12" y="38" width="56" height="8" rx="2" fill="#e8efec"/>
+  <rect x="12" y="38" width="56" height="8" rx="2" fill="#dcebed"/>
   <rect x="20" y="40" width="24" height="4" rx="1" fill="#3b82f6"/>
 </g>
 
 <g transform="translate(255,430)">
-  <rect x="0" y="0" width="90" height="64" rx="8" fill="#16203a" stroke="#2a3a5c" stroke-width="1.5"/>
+  <rect x="0" y="0" width="90" height="64" rx="8" fill="#ffffff" stroke="#c4dde4" stroke-width="1.5"/>
   <path d="M14 44 L30 24 L44 36 L58 16 L76 32" stroke="#3b82f6" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
   <circle cx="76" cy="32" r="3.5" fill="#3b82f6"/>
 </g>
